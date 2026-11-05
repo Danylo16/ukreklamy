@@ -1,0 +1,106 @@
+/* UKreklamy 1.12: mobile-first finishing layer.
+   Overrides only viewports up to 800 CSS px. Desktop appearance/JS unchanged.
+   No libraries, animated scroll listeners, or layout-triggering transforms. */
+@media (max-width: 800px) {
+  /* Header stays predictable and does not push page content when menu opens. */
+  .site-header.ukr-smart-header { background:#fff; }
+  .site-header .nav { position:relative; min-height:72px; height:auto; flex-wrap:nowrap; gap:12px; padding-block:12px; }
+  .site-header .ukr-header-logo { width:clamp(145px, 34vw, 192px); min-width:0; }
+  .site-header .menubtn { display:grid; flex:0 0 44px; place-items:center; width:44px; height:44px; margin-left:auto; padding:0; border-radius:7px; font-size:23px; line-height:1; color:#171717; border:1px solid #e0ddda; background:#fff; }
+  .site-header .navlinks.open { position:absolute; left:20px; right:20px; top:calc(100% - 2px); width:auto; z-index:30; margin:0; padding:10px; gap:2px; background:#fff; border:1px solid #ebe8e7; border-top:0; border-radius:0 0 10px 10px; box-shadow:0 22px 36px rgba(0,0,0,.13); }
+  .site-header .navlinks.open a { display:flex; align-items:center; min-height:46px; padding:10px 12px; border-radius:6px; }
+  .site-header .navlinks.open a:hover,.site-header .navlinks.open a:focus-visible { background:#f7f3f3; }
+  .site-header .nav>.btn, .site-header .navphone { display:none; }
+  html { scroll-padding-top:84px; }
+  #top,#services,#works,#about,#process,#clients,#faq,#contact,#location { scroll-margin-top:84px; }
+
+  /* Photo stays full-bleed, but the main message and primary action stay in the first screen. */
+  .ukr-hero-v17 { min-height:620px; height:auto; overflow:hidden; background:#0b0a0c; }
+  .ukr-hero-v17 .heroinner { position:relative; isolation:isolate; z-index:1; display:flex; align-items:center; min-height:620px; height:auto; padding-top:64px; padding-bottom:64px; }
+  .ukr-hero-v17 .heroinner::before { content:""; position:absolute; z-index:1; inset:0; pointer-events:none;
+     background:linear-gradient(180deg,rgba(9,8,10,.20) 0%,rgba(9,8,10,.58) 25%,rgba(9,8,10,.91) 54%,#0b0a0c 100%),
+                linear-gradient(90deg,rgba(9,8,10,.69),rgba(9,8,10,.08) 86%); }
+  .ukr-hero-v17 .heroart { position:absolute; inset:0; z-index:0; display:block; width:100%; height:100%; min-height:0; max-height:none; overflow:hidden; border:0; border-radius:0; transform:none!important; animation:none!important; opacity:1;
+     -webkit-mask-image:none!important; mask-image:none!important; }
+  .ukr-hero-v17 .heroart.has-image .ukr-hero-photo { position:absolute; inset:0!important; display:block; width:100%!important; height:100%!important; max-height:none!important; object-fit:cover; object-position:78% 37%; transform:none!important; will-change:auto!important; }
+  .ukr-hero-v17 .heroart.ukr-hero-position-left .ukr-hero-photo { object-position:35% 37%; }
+  .ukr-hero-v17 .heroart.ukr-hero-position-center .ukr-hero-photo { object-position:70% 37%; }
+  .ukr-hero-v17 .heroart.ukr-hero-position-right .ukr-hero-photo { object-position:100% 37%; }
+  .ukr-hero-v17 .heroart.has-image::after { display:none; }
+  .ukr-hero-v17 .herocopy { position:relative; z-index:2; display:block; width:100%; max-width:620px; min-width:0; padding:0; text-shadow:0 2px 13px rgba(0,0,0,.22); }
+  .ukr-hero-v17 .herocopy .label { font-size:11px; line-height:1.5; letter-spacing:.12em; }
+  .ukr-hero-v17 h1 { font-size:clamp(39px,7.2vw,61px); line-height:1.05; letter-spacing:-.05em; margin:16px 0 18px; overflow-wrap:normal; }
+  .ukr-hero-v17 .herocopy > p { max-width:520px; font-size:clamp(15px,2.6vw,17px); line-height:1.53; color:#f2eef0; margin:0; }
+  .ukr-hero-v17 .heroactions { display:flex; flex-wrap:wrap; gap:10px; margin-top:23px; }
+  .ukr-hero-v17 .heroactions .btn { min-height:49px; padding:10px 16px; font-size:14px; }
+
+  /* Avoid broken layout when a visitor enters lengthy content in CMS. */
+  .sectionhead, .ukr-clients-layout, .ukr-faq-grid { min-width:0; }
+  .sectionhead h2,.ukr-faq-intro h2 { overflow-wrap:break-word; }
+  .servicegrid { gap:14px; }
+  .ukr-category .visual { height:clamp(175px,32vw,215px); }
+  .ukr-category .visual.has-image img, .workvisual img { object-fit:cover; }
+  .ukr-subservice-btn { min-height:46px; }
+  .ukr-gallery-arrow { width:42px; height:42px; }
+
+  /* Modal remains usable at 320 px and with long descriptions. */
+  .ukr-service-dialog { width:calc(100% - 16px); max-width:600px; max-height:calc(100dvh - 16px); border-radius:12px; }
+  .ukr-dialog-content { padding:18px; }
+  .ukr-detail-layout { grid-template-columns:1fr; gap:18px; }
+  .ukr-detail-main { min-height:0; padding:0; }
+  .ukr-detail-title { margin-right:43px; font-size:clamp(27px,6vw,36px); }
+  .ukr-gallery-slide { aspect-ratio:4 / 3; }
+  .ukr-detail-price { margin-top:18px; padding-top:17px; }
+  .ukr-service-inquiry { min-height:48px; }
+
+  /* Form, FAQs, and the map are touch-friendly, not oversized. */
+  .ukr-faq-list .ukr-faq-trigger { min-height:55px; padding-block:16px; line-height:1.45; }
+  .contact .contactgrid { gap:28px; }
+  .contact .ukr-contact-copy { padding-top:0; }
+  .contact .ukr-contact-copy h2 { margin-bottom:20px; }
+  .contact .form.ukr-lead-form { margin-inline:auto; padding:23px; }
+  .form .ukr-form-field input, .form .ukr-form-field textarea, .form .ukr-channel-option span { font-size:16px; }
+  .form .ukr-form-field input, .form .ukr-form-field textarea { min-height:48px; }
+  .ukr-location-description { min-width:0; }
+  .ukr-map-shell { height:360px; }
+}
+@media (max-width: 640px) {
+  .wrap { padding-inline:20px; }
+  .ukr-hero-v17, .ukr-hero-v17 .heroinner { min-height:590px; }
+  .ukr-hero-v17 .heroinner { padding-top:52px; padding-bottom:54px; }
+  .ukr-hero-v17 h1 { font-size:clamp(36px,9.9vw,49px); }
+  .ukr-hero-v17 .heroactions { display:grid; grid-template-columns:1fr; gap:10px; }
+  .ukr-hero-v17 .heroactions .btn { width:100%; justify-content:space-between; text-align:left; }
+  .ukr-hero-v17 .heroactions .btn.secondary { justify-content:center; }
+  .servicegrid, .faqgrid, .ukr-faq-grid, .contactgrid { grid-template-columns:1fr; }
+  .section { padding-block:58px; }
+  .sectionhead h2 { font-size:clamp(34px,8.6vw,46px); }
+  .ukr-category .servicebody { padding:21px; }
+  .ukr-category .visual { height:clamp(185px,53vw,235px); }
+  .worktrack>.work { flex-basis:min(84vw,360px); }
+  .steps { grid-template-columns:1fr; gap:15px; }
+  .step h3 { margin:11px 0 7px; }
+  .clients { padding-block:40px; }
+  .contact .ukr-contact-copy h2 { font-size:clamp(38px,9.5vw,49px); }
+  .contact .ukr-contact-custom-links { gap:5px 16px; }
+  .contact .form.ukr-lead-form { padding:20px; }
+  .ukr-location-description h2 { font-size:clamp(34px,8.5vw,44px); }
+  .ukr-location-description address { font-size:17px; }
+  .ukr-map-shell { height:290px; }
+}
+@media (max-width: 360px) {
+  .wrap { padding-inline:16px; }
+  .site-header .navlinks.open { left:16px; right:16px; }
+  .site-header .ukr-header-logo { width:148px; }
+  .ukr-hero-v17, .ukr-hero-v17 .heroinner { min-height:580px; }
+  .ukr-hero-v17 .heroinner { padding-top:42px; padding-bottom:42px; }
+  .ukr-hero-v17 h1 { font-size:35px; }
+  .ukr-hero-v17 .herocopy > p { font-size:14px; }
+  .ukr-hero-v17 .herocopy .label { font-size:10px; }
+  .form .ukr-privacy { font-size:12px; }
+  .ukr-dialog-content { padding:14px; }
+}
+@media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+  .site-header.ukr-smart-header, .ukr-gallery-track, .ukr-subservices,
+  .ukr-dialog-surface, .ukr-service-dialog { transition:none!important; animation:none!important; }
+}

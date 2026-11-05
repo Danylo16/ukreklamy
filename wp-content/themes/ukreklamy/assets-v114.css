@@ -1,0 +1,82 @@
+/* UKreklamy 1.14 – scoped enhancement, no change to desktop Hero, forms or Telegram. */
+/* Keep logo art INSIDE its card, independent of the source aspect ratio. */
+.ukr-clients-v114 { padding-block: 48px; background: #faf9f7; }
+.ukr-clients-v114 .ukr-clients-layout { display:grid!important; grid-template-columns: 190px minmax(0,1fr); align-items:center; gap:28px; }
+.ukr-clients-v114 .ukr-clients-gallery { min-width:0; position:relative; padding:0 40px; }
+.ukr-clients-v114 .ukr-clients-track { display:flex; align-items:center; gap:12px; min-width:0; padding: 6px 2px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; }
+.ukr-clients-v114 .ukr-client-logo,
+.ukr-clients-v114 .ukr-client-logo:is(a,div) {
+  box-sizing:border-box!important; flex:0 0 clamp(144px,16vw,180px); width:clamp(144px,16vw,180px); min-width:0;
+  height:104px!important; min-height:0; max-height:104px;
+  padding:16px!important; display:flex!important; align-items:center!important; justify-content:center!important;
+  background:#fff; border:1px solid #e8e4e2; border-radius:12px; overflow:hidden!important;
+  scroll-snap-align:start; position:relative; line-height:normal;
+}
+.ukr-clients-v114 .ukr-client-logo img {
+  box-sizing:border-box; display:block!important; position:static!important;
+  width:100%!important; height:100%!important; max-width:100%!important; max-height:100%!important;
+  min-width:0; min-height:0; padding:0!important; margin:0!important;
+  object-fit:contain!important; object-position:center!important; flex:0 1 auto;
+  filter:grayscale(1); opacity:.7; transition:filter .28s ease,opacity .28s ease;
+}
+.ukr-clients-v114 .ukr-client-logo:is(:hover,:focus-visible) img { filter:grayscale(0); opacity:1; }
+.ukr-clients-v114 .ukr-clients-gallery .ukr-carousel-nav { z-index:3; }
+.ukr-clients-v114 .ukr-clients-gallery.is-static { padding-inline:0; }
+/* Compact, varied-height photographs: each tile can turn over to reveal its summary. */
+.ukr-works-v113.ukr-works-v114 .sectionhead { margin-bottom:24px; }
+.ukr-works-v114 .ukr-works-gallery { padding-inline:30px; }
+.ukr-works-v114 .worktrack { align-items:center!important; gap:14px!important; padding:8px 3px 12px; }
+.ukr-works-v114 .worktrack > .ukr-work-flip-card {
+  box-sizing:border-box; position:relative; display:block!important; overflow:visible!important;
+  flex:0 0 clamp(235px,24vw,330px)!important; width:clamp(235px,24vw,330px);
+  height:315px!important; min-height:0!important; padding:0!important;
+  background:transparent!important; border:0!important; box-shadow:none;
+  perspective:1500px; isolation:auto; scroll-snap-align:center;
+}
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n + 2) { flex-basis:clamp(225px,22vw,300px)!important; width:clamp(225px,22vw,300px); height:272px!important; }
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n) { flex-basis:clamp(245px,25vw,340px)!important; width:clamp(245px,25vw,340px); height:348px!important; }
+.ukr-works-v114 .ukr-work-flip-card::before { display:none!important; }
+.ukr-works-v114 .ukr-work-flipper { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .68s cubic-bezier(.22,1,.36,1); }
+.ukr-works-v114 .ukr-work-flip-card.is-flipped .ukr-work-flipper { transform:rotateY(180deg); }
+.ukr-works-v114 .ukr-work-face { position:absolute; inset:0; overflow:hidden; border-radius:13px; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.ukr-works-v114 .ukr-work-face-front { color:#fff; background:#2e161d; box-shadow:0 6px 22px rgba(20,12,16,.12); }
+.ukr-works-v114 .ukr-work-flip-trigger { display:block; width:100%; height:100%; padding:0; border:0; border-radius:inherit; cursor:pointer; background:none; color:inherit; text-align:left; }
+.ukr-works-v114 .ukr-work-front-photo { position:absolute; inset:0; display:block; overflow:hidden; background:linear-gradient(145deg,#21171b,#5b1021); }
+.ukr-works-v114 .ukr-work-front-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.18) 51%,rgba(0,0,0,.82) 100%); pointer-events:none; }
+.ukr-works-v114 .ukr-work-front-photo img { display:block; width:100%!important; height:100%!important; object-fit:cover; transform:scale(1)!important; transition:transform .5s ease; }
+.ukr-works-v114 .ukr-work-flip-trigger:is(:hover,:focus-visible) img { transform:scale(1.045)!important; }
+.ukr-works-v114 .ukr-work-front-caption { position:absolute; inset:auto 0 0; padding:20px 20px 18px; display:flex; flex-direction:column; gap:9px; z-index:2; }
+.ukr-works-v114 .ukr-work-front-caption strong { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; font-size:clamp(18px,1.7vw,23px); line-height:1.12; letter-spacing:-.025em; }
+.ukr-works-v114 .ukr-work-front-action { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12px; font-weight:750; color:#fff; }
+.ukr-works-v114 .ukr-work-front-action span { font-size:21px; }
+.ukr-works-v114 .ukr-work-face-back { transform:rotateY(180deg); background:#1c171a; color:#fff; border:1px solid #43383d; display:flex; flex-direction:column; padding:19px 20px 20px; }
+.ukr-works-v114 .ukr-work-back-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.ukr-works-v114 .ukr-work-back-label { font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#ff9eaa; font-weight:800; }
+.ukr-works-v114 .ukr-work-unflip { flex:none; border:1px solid #685b5e; border-radius:50%; width:31px; height:31px; display:grid; place-items:center; color:white; background:#ffffff10; font-size:22px; line-height:1; }
+.ukr-works-v114 .ukr-work-unflip:hover { background:#ffffff24; }
+.ukr-works-v114 .ukr-work-face-back h3 { color:white; font-size:clamp(19px,1.8vw,25px); line-height:1.15; margin:19px 0 8px; overflow-wrap:anywhere; }
+.ukr-works-v114 .ukr-work-face-back p { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:5; line-clamp:5; overflow:hidden; margin:0 0 13px; color:#ded6d8; font-size:13px; line-height:1.55; overflow-wrap:anywhere; }
+.ukr-works-v114 .ukr-work-face-back .ukr-work-open { margin-top:auto; width:100%; display:flex; justify-content:space-between; align-items:center; font-size:12px; padding:11px 0; }
+.ukr-works-v114 .ukr-work-no-photos { margin-top:auto; font-size:12px; color:#d2c9cb; }
+.ukr-works-v114 .ukr-work-flip-trigger:focus-visible, .ukr-works-v114 .ukr-work-unflip:focus-visible, .ukr-works-v114 .ukr-work-open:focus-visible { outline:3px solid #ff5367; outline-offset:-3px; }
+.ukr-works-v114 .ukr-work-dialog .ukr-work-detail-controls { inset:0 12px; }
+@media (max-width:900px) {
+  .ukr-clients-v114 .ukr-clients-layout { grid-template-columns:1fr; gap:20px; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card { flex-basis:clamp(235px,38vw,300px)!important; width:clamp(235px,38vw,300px); }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n + 2) { flex-basis:clamp(215px,34vw,285px)!important; width:clamp(215px,34vw,285px); }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n) { flex-basis:clamp(240px,40vw,315px)!important; width:clamp(240px,40vw,315px); }
+}
+@media (max-width:600px) {
+  .ukr-clients-v114 { padding-block:35px; }
+  .ukr-clients-v114 .ukr-clients-gallery { padding-inline:32px; }
+  .ukr-clients-v114 .ukr-client-logo { flex-basis:140px!important; width:140px!important; height:86px!important; max-height:86px!important; padding:13px!important; }
+  .ukr-works-v114 .ukr-works-gallery { padding-inline:21px; }
+  .ukr-works-v114 .worktrack { gap:12px!important; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card { flex-basis:min(78vw,288px)!important; width:min(78vw,288px); height:310px!important; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n + 2) { flex-basis:min(72vw,275px)!important; width:min(72vw,275px); height:282px!important; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n) { flex-basis:min(80vw,292px)!important; width:min(80vw,292px); height:332px!important; }
+  .ukr-works-v114 .ukr-work-face-back { padding:16px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ukr-works-v114 .ukr-work-flipper, .ukr-works-v114 .ukr-work-front-photo img, .ukr-clients-v114 .ukr-client-logo img { transition:none!important; }
+}

@@ -1,0 +1,108 @@
+/* UKreklamy v1.2 — refinement layered over the approved visual design. */
+/* Category card disclosure: real measured height transition, not a layout jump. */
+.ukr-category{overflow:hidden;transition:box-shadow .22s ease,border-color .22s ease}
+.ukr-category:hover{box-shadow:0 12px 32px rgba(20,20,20,.055)}
+.ukr-category-trigger{transition:background-color .2s ease}
+.ukr-category-trigger:hover .servicefoot span:first-child{color:#a51020}
+.ukr-category .servicefoot{display:flex;justify-content:space-between;align-items:center;min-height:38px}
+.ukr-category .servicefoot .ukr-category-chevron{display:inline-flex;align-items:center;justify-content:center;width:31px;height:31px;border-radius:50%;background:#f9edef;transition:background-color .23s ease,transform .28s cubic-bezier(.22,1,.36,1)}
+.ukr-category .servicefoot .ukr-category-chevron svg{display:block}
+.ukr-category-trigger[aria-expanded=true] .ukr-category-chevron{transform:rotate(180deg);background:#f4d7db}
+.ukr-subservices,.ukr-subservices.is-expanded{display:block;grid-template-rows:none;height:0;opacity:0;visibility:hidden;overflow:hidden;transition:height .34s cubic-bezier(.22,1,.36,1),opacity .22s ease,visibility 0s linear .34s}
+.ukr-subservices.is-expanded{opacity:1;visibility:visible;transition:height .34s cubic-bezier(.22,1,.36,1),opacity .25s ease,visibility 0s}
+.ukr-subservices-inner{overflow:visible}
+.ukr-subservices-list{margin:0;padding:5px 16px 13px;border-top:1px solid #ebe8e7}
+.ukr-subservice-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;padding:11px 12px;border:0;border-radius:5px;background:transparent;text-align:left;color:var(--ink);font-size:13px;font-weight:700;transition:background-color .2s ease,color .2s ease,transform .2s ease}
+.ukr-subservices-list li+li .ukr-subservice-btn{border-top:1px solid #f0eded}
+.ukr-subservice-btn svg{flex:0 0 auto;color:var(--red);transition:transform .22s ease}
+.ukr-subservice-btn:hover,.ukr-subservice-btn:focus-visible{background:#fbf0f1;color:#a51020}
+.ukr-subservice-btn:hover svg,.ukr-subservice-btn:focus-visible svg{transform:translateX(4px)}
+/* Modal: simple clean gallery/detail split with explicit opening and closing states. */
+.ukr-service-dialog{width:min(980px,calc(100% - 36px));max-width:980px;max-height:min(88dvh,830px);margin:auto;border:1px solid rgba(255,255,255,.13);border-radius:14px;padding:0;background:#fff;color:#161616;overflow:auto;overscroll-behavior:contain;box-shadow:0 32px 110px rgba(0,0,0,.32)}
+.ukr-service-dialog[open]{animation:none;opacity:0;transform:translateY(18px) scale(.976);transition:opacity .28s ease,transform .32s cubic-bezier(.22,1,.36,1)}
+.ukr-service-dialog[open].is-visible{opacity:1;transform:translateY(0) scale(1)}
+.ukr-service-dialog::backdrop{animation:none;background:rgba(11,12,15,0);backdrop-filter:blur(0);transition:background .3s ease,backdrop-filter .3s ease}
+.ukr-service-dialog.is-visible::backdrop{background:rgba(11,12,15,.69);backdrop-filter:blur(5px)}
+.ukr-service-dialog.is-closing,.ukr-service-dialog.is-closing::backdrop{animation:none}
+.ukr-dialog-surface{position:relative}
+.ukr-dialog-content{padding:32px 34px}
+.ukr-dialog-close{position:absolute;z-index:5;top:14px;right:14px;display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;border:1px solid #e8e5e4;background:#fff;color:#242424;box-shadow:0 3px 14px #0000000b;transition:background-color .2s ease,border-color .2s ease,transform .2s ease}
+.ukr-dialog-close:hover{background:#fbebed;border-color:#edc5cb;color:#b50c20;transform:rotate(90deg)}
+.ukr-detail-layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:34px;align-items:start}
+.ukr-detail-media{min-width:0;padding-top:0}
+.ukr-gallery{position:relative;border-radius:10px;overflow:hidden;background:#151515}
+.ukr-gallery-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;overscroll-behavior-x:contain;touch-action:pan-x pan-y;outline-offset:-4px}
+.ukr-gallery-track::-webkit-scrollbar{display:none}
+.ukr-gallery-slide{flex:0 0 100%;width:100%;aspect-ratio:1/1;scroll-snap-align:start;display:grid;place-items:center;background:#181818}
+.ukr-gallery-slide img{display:block;width:100%;height:100%;object-fit:contain}
+.ukr-gallery-empty{background:linear-gradient(130deg,#181818,#3b0b13);color:#dedede;font-size:13px;letter-spacing:.04em;text-align:center;padding:20px}
+.ukr-gallery-arrow{position:absolute;z-index:2;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid #ffffff77;border-radius:50%;background:rgba(255,255,255,.92);box-shadow:0 4px 13px #0003;font-size:30px;line-height:1;color:#171717;transition:background .2s ease,box-shadow .2s ease}
+.ukr-gallery-arrow:hover:not(:disabled){background:white;box-shadow:0 4px 20px #0005}
+.ukr-gallery-arrow:disabled{opacity:.25;cursor:default}
+.ukr-gallery-prev{left:12px}.ukr-gallery-next{right:12px}
+.ukr-gallery-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px}
+.ukr-gallery-thumbs{display:flex;overflow-x:auto;gap:8px;min-width:0;scrollbar-width:thin;padding:2px 0 8px}
+.ukr-gallery-thumb{display:block;flex:0 0 58px;width:58px;height:49px;padding:2px;border:2px solid transparent;border-radius:6px;background:#fff;opacity:.65;transition:border-color .2s ease,opacity .2s ease}
+.ukr-gallery-thumb.is-current,.ukr-gallery-thumb:hover{opacity:1;border-color:var(--red)}
+.ukr-gallery-thumb img{width:100%;height:100%;object-fit:cover;border-radius:2px}
+.ukr-gallery-count{font-size:12px;font-weight:800;color:#595959;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ukr-detail-main{display:flex;flex-direction:column;min-height:380px;min-width:0;padding:12px 6px 0 0}
+.ukr-detail-main .eyebrow{margin-bottom:13px}
+.ukr-detail-title{font-size:clamp(29px,3vw,42px);line-height:1.1;letter-spacing:-.045em;margin:0 38px 18px 0;overflow-wrap:anywhere}
+.ukr-detail-intro{font-size:16px;line-height:1.5;color:#333;font-weight:650;margin:0 0 13px}
+.ukr-detail-description{font-size:14px;line-height:1.67;color:#606060;overflow-wrap:anywhere}
+.ukr-detail-description>*:last-child{margin-bottom:0}
+.ukr-detail-price{margin:auto 0 0;padding:23px 0 20px;border-top:1px solid #ebe8e7;border-bottom:0}
+.ukr-detail-price>span{color:#777;font-size:12px;font-weight:600}
+.ukr-detail-price>strong{font-size:23px;letter-spacing:-.03em}
+.ukr-detail-price>small{font-size:12px;color:#777}
+.ukr-service-inquiry{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:53px;border-radius:6px;padding-inline:18px;gap:12px;transition:background-color .22s ease,transform .22s ease}
+.ukr-service-inquiry:hover{transform:translateY(-2px)}
+.ukr-service-inquiry span{font-size:22px}
+/* Contact form: consistent spacing, accessible radios, no UA default select. */
+.contactgrid{grid-template-columns:minmax(0,1fr) minmax(0,470px);gap:clamp(28px,6vw,80px);align-items:start}
+.ukr-contact-copy{padding-top:18px}
+.ukr-contact-copy>p{max-width:470px}
+.form.ukr-lead-form{width:100%;max-width:470px;justify-self:end;padding:28px 30px;border-radius:10px;box-shadow:0 18px 50px rgba(65,0,0,.08)}
+.ukr-form-heading{margin:0 0 21px}
+.ukr-form-heading h3{font-size:23px;line-height:1.15;letter-spacing:-.03em;margin:0 0 5px}
+.ukr-form-heading p{font-size:13px;color:#6b6b6b;margin:0}
+.form .ukr-channel-field{border:0;margin:0 0 17px;padding:0;min-width:0}
+.form .ukr-channel-field legend{padding:0;margin:0 0 8px;font-size:13px;font-weight:750}
+.ukr-channel-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:4px;border-radius:7px;background:#f4f2f1;border:1px solid #ece9e7}
+.form .ukr-channel-option{display:block;position:relative;margin:0;font-size:13px;font-weight:750;cursor:pointer}
+.form .ukr-channel-option input{position:absolute;opacity:0;width:1px;height:1px;margin:0;padding:0;border:0}
+.ukr-channel-option span{display:flex;align-items:center;justify-content:center;gap:9px;min-height:39px;border-radius:5px;color:#5e5e5e;transition:color .2s ease,background .2s ease,box-shadow .2s ease}
+.ukr-channel-option input:checked+span{background:#fff;color:#c51025;box-shadow:0 1px 7px #00000016}
+.ukr-channel-option input:focus-visible+span{outline:3px solid #d51d2c;outline-offset:1px}
+.ukr-channel-option:hover span{color:#b71829}
+.form .ukr-form-field{margin:0 0 16px}
+.form .ukr-form-field label{display:block;margin:0 0 7px;font-size:13px;line-height:1.35;font-weight:750}
+.ukr-optional{font-weight:400;color:#818181;font-size:12px}
+.form .ukr-form-field input,.form .ukr-form-field textarea{display:block;box-sizing:border-box;width:100%;min-height:47px;padding:11px 13px;margin:0;background:#fff;color:#171717;border:1px solid #d9d5d2;border-radius:6px;font:inherit;font-size:14px;line-height:1.45;box-shadow:none;transition:border-color .2s ease,box-shadow .2s ease}
+.form .ukr-form-field textarea{min-height:84px;max-height:210px;resize:vertical}
+.form .ukr-form-field input:focus,.form .ukr-form-field textarea:focus{border-color:var(--red);outline:0;box-shadow:0 0 0 3px #d51d2c1c}
+.form .ukr-form-field input::placeholder,.form .ukr-form-field textarea::placeholder{color:#98918e}
+.form .ukr-privacy{display:flex;align-items:flex-start;gap:11px;margin:3px 0 16px;font-weight:400;color:#656565;font-size:11.5px;line-height:1.5}
+.form .ukr-privacy input{display:block;flex:0 0 17px;width:17px;height:17px;min-width:17px;min-height:17px;margin:1px 0 0;padding:0;accent-color:var(--red);cursor:pointer}
+.form .ukr-privacy span{min-width:0}
+.form input[type=hidden]{display:none}
+.form .ukr-lead-submit{width:100%;min-height:49px;display:flex;justify-content:space-between;margin:0;border-radius:6px;padding-inline:17px;font-size:14px;transition:transform .2s ease,background-color .2s ease}
+.form .ukr-lead-submit:hover:not(:disabled){transform:translateY(-2px)}
+.form .ukr-lead-submit span{font-size:22px}
+.form .form-status{min-height:0;font-size:12px;line-height:1.5;margin:12px 0 0}
+.form .form-status:empty{display:none}
+.form .form-status[role=alert]{color:#a51020}
+.form .form-status.is-success{color:#18723d}
+.form .ukr-selection{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;margin:0 0 17px;background:#fff7f8;border:1px solid #f1c6cc;border-left:3px solid var(--red);border-radius:5px}
+.form .ukr-selection[hidden]{display:none}
+.ukr-selection>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ukr-selection-label{color:#a51020;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.ukr-selection strong{font-size:13px;line-height:1.25;overflow-wrap:anywhere}
+.ukr-selection-hint{font-size:11px;color:#7c6d6d}
+.ukr-selection-clear{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;background:transparent;border:0;border-radius:50%;font-size:24px;color:#777;transition:background .2s ease}
+.ukr-selection-clear:hover{background:#f5dce0;color:#a51020}
+@media(max-width:900px){.contactgrid{grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:28px}.form.ukr-lead-form{padding:24px}.ukr-detail-layout{gap:24px}}
+@media(max-width:700px){.contactgrid{grid-template-columns:1fr;gap:27px}.form.ukr-lead-form{max-width:100%;justify-self:stretch}.ukr-contact-copy{padding-top:0}.ukr-contact-copy h2{max-width:510px}.ukr-service-dialog{width:calc(100% - 18px);max-height:94dvh;border-radius:10px}.ukr-dialog-content{padding:18px}.ukr-detail-layout{grid-template-columns:1fr;gap:20px}.ukr-gallery-slide{aspect-ratio:4/3}.ukr-detail-main{min-height:0;padding:0}.ukr-detail-title{font-size:clamp(27px,7vw,37px);margin-bottom:12px}.ukr-detail-price{margin:17px 0 0;padding:17px 0}.ukr-dialog-close{top:26px;right:28px;width:34px;height:34px;background:#fffffff2}.ukr-gallery-toolbar{padding-top:9px}.ukr-gallery-thumb{flex-basis:50px;width:50px;height:44px}}
+@media(max-width:420px){.form.ukr-lead-form{padding:21px 19px}.ukr-dialog-content{padding:12px}.ukr-detail-main{padding:0 8px 10px}.ukr-detail-title{margin-right:28px}.ukr-gallery-slide{aspect-ratio:1/1}}
+@media(prefers-reduced-motion:reduce){.ukr-subservices,.ukr-subservices.is-expanded,.ukr-subservice-btn,.ukr-category .servicefoot .ukr-category-chevron,.ukr-service-dialog[open],.ukr-service-dialog::backdrop,.ukr-service-inquiry,.ukr-channel-option span{transition:none!important}.ukr-service-dialog[open]{opacity:1;transform:none}.ukr-gallery-track{scroll-behavior:auto}}

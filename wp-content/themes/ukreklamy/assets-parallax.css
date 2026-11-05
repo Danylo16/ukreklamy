@@ -1,0 +1,46 @@
+/* UKreklamy v1.7: selective, bounded visual-depth parallax.
+   No text, navigation, form, accordion, or dialog is moved.
+   Default CSS values yield an identical static layout without JavaScript. */
+
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  /* Hero: move the actual image within its clipped frame; never the frame or copy. */
+  .heroart.has-image .ukr-hero-photo {
+    transform: translate3d(0, var(--ukr-parallax-offset, 0px), 0) scale(1.00);
+    transform-origin: center center;
+    backface-visibility: hidden;
+  }
+  /* Card images only: moving the frame would break the approved card grid. */
+  .ukr-category .visual.has-image img {
+    transform: translate3d(0, var(--ukr-parallax-offset, 0px), 0) scale(1.44);
+    transform-origin: center center;
+    backface-visibility: hidden;
+  }
+  /* Actual portfolio images, not the carousel track or its controls. */
+  .workvisual { overflow: hidden; }
+  .workvisual img {
+    transform: translate3d(0, var(--ukr-parallax-offset, 0px), 0) scale(1.34);
+    transform-origin: center center;
+    backface-visibility: hidden;
+  }
+  /* Subtle ambient red glow behind process content; no extra markup. */
+  .process { position: relative; isolation: isolate; overflow: hidden; }
+  .process::before {
+    content: '';
+    position: absolute;
+    inset: -50px -10%;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse 37% 55% at 82% 38%, rgba(184, 19, 39, .16), transparent 75%);
+    transform: translate3d(0, var(--ukr-parallax-offset, 0px), 0);
+    backface-visibility: hidden;
+  }
+  .process > .wrap { position: relative; z-index: 1; }
+}
+
+/* Maintain the source design on mobile / touch-size screens and for reduced motion. */
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .heroart.has-image .ukr-hero-photo,
+  .ukr-category .visual.has-image img,
+  .workvisual img { transform: none !important; }
+  .process::before { display: none; }
+}

@@ -1,0 +1,122 @@
+/* UKreklamy 1.11 — branded header, directional hide/show, visible layered depth and location. */
+:root { --ukr-brand-accent: #e02a3c; --ukr-admin-offset: 0px; }
+body.admin-bar { --ukr-admin-offset: 32px; }
+::selection { background: #b9192b; color: #fff; }
+.ukr-hero-v17 h1 em { color: var(--ukr-brand-accent); }
+
+/* Keep a layout slot for the header: no cumulative layout shift on reveal/hide. */
+.site-header.ukr-smart-header {
+  position: sticky;
+  top: var(--ukr-admin-offset);
+  z-index: 110;
+  width: 100%;
+  background: rgba(255,255,255,.975);
+  border-bottom: 1px solid rgba(16,16,16,.065);
+  transition: transform .37s cubic-bezier(.22,1,.36,1), box-shadow .24s ease, background-color .24s ease;
+  will-change: transform;
+}
+.site-header.ukr-smart-header.ukr-scrolled { box-shadow: 0 12px 35px rgba(12,11,14,.09); }
+.site-header.ukr-smart-header.ukr-hidden { transform: translate3d(0,calc(-100% - var(--ukr-admin-offset)),0); }
+.site-header .nav { margin-inline:auto; }
+.site-header .ukr-header-logo { display:flex; flex:0 0 auto; align-items:center; width:225px; height:auto; }
+.site-header .ukr-header-logo img { display:block; width:100%; height:auto; object-fit:contain; }
+.site-header .navlinks { gap:clamp(10px,1.6vw,24px); white-space:nowrap; }
+.site-header .navlinks a { transition: color .2s; }
+.site-header .navlinks a:hover { color:#b9192b; }
+html { scroll-padding-top: 92px; }
+#top, #services, #works, #about, #process, #clients, #faq, #contact, #location { scroll-margin-top:95px; }
+
+/* Photograph moves within an overscanned frame; content and CTAs remain still. */
+@media(min-width:801px) and (prefers-reduced-motion:no-preference) {
+  .ukr-hero-v17 .heroart.has-image .ukr-hero-photo {
+    inset: -165px 0 auto !important;
+    height:calc(100% + 330px) !important;
+    max-height:none;
+    transform:translate3d(0,var(--ukr-v111-hero-shift,0px),0) scale(1.025) !important;
+    will-change:transform;
+  }
+  .ukr-category .visual.has-image img {
+    transform:translate3d(0,var(--ukr-v111-card-shift,0px),0) scale(1.28) !important;
+    will-change:transform;
+  }
+  .workvisual img {
+    transform:translate3d(0,var(--ukr-v111-card-shift,0px),0) scale(1.25) !important;
+    will-change:transform;
+  }
+  /* Existing neutral colors preserved; depth comes from two independently moving light planes. */
+  .about.ukr-depth-section::before {
+    background: radial-gradient(ellipse 42% 65% at 75% 24%,rgba(181,35,56,.19),transparent 86%), radial-gradient(ellipse 32% 55% at 22% 85%,rgba(170,143,139,.31),transparent 86%);
+  }
+  .about.ukr-depth-section::after {
+    background: radial-gradient(ellipse 40% 60% at 12% 25%,rgba(255,255,255,.6),transparent 82%);
+  }
+  .process.ukr-depth-section::before {
+    background: radial-gradient(ellipse 55% 65% at 85% 20%,rgba(207,18,46,.50),transparent 82%), radial-gradient(ellipse 48% 48% at 13% 77%,rgba(120,8,23,.37),transparent 86%);
+  }
+  .process.ukr-depth-section::after {
+    background: radial-gradient(ellipse 39% 68% at 25% 16%,rgba(243,90,113,.21),transparent 86%);
+  }
+  .contact.ukr-depth-section::before {
+    background: radial-gradient(ellipse 57% 75% at 2% 72%,rgba(98,0,19,.42),transparent 84%),radial-gradient(ellipse 44% 50% at 91% 11%,rgba(255,210,217,.20),transparent 87%);
+  }
+  .contact.ukr-depth-section::after {
+    background: radial-gradient(ellipse 43% 58% at 82% 85%,rgba(99,0,17,.30),transparent 86%),radial-gradient(ellipse 35% 35% at 35% 7%,rgba(255,255,255,.12),transparent 88%);
+  }
+  .ukr-depth-section::before { transform:translate3d(0,var(--ukr-v111-near,0px),0) !important; }
+  .ukr-depth-section::after { transform:translate3d(0,var(--ukr-v111-far,0px),0) !important; }
+}
+
+/* Map: no third-party requests until the visitor opts in. */
+.ukr-location { background:#f5f4f2; overflow:hidden; }
+.ukr-location-layout { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr); gap:clamp(30px,6vw,94px); align-items:center; }
+.ukr-location-description h2 { font-size:clamp(37px,4.5vw,60px); line-height:1.05; letter-spacing:-.05em; margin:15px 0 25px; }
+.ukr-location-description p { color:#575454; max-width:470px; line-height:1.7; }
+.ukr-location-description address { display:block; max-width:430px; font-style:normal; font-size:19px; font-weight:750; line-height:1.5; margin:27px 0; }
+.ukr-location-route { min-height:50px; }
+.ukr-location-description small { display:block; color:#767171; line-height:1.6; margin-top:19px; max-width:370px; }
+.ukr-map-shell { position:relative; height:440px; overflow:hidden; isolation:isolate; border:1px solid #dedbd7; background:#e8e5e0; border-radius:12px; box-shadow:0 20px 65px rgba(20,14,14,.09); }
+.ukr-map-placeholder { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:25px; text-align:center; background:radial-gradient(ellipse at 45% 48%,rgba(213,29,44,.07),transparent 68%),repeating-linear-gradient(30deg,transparent 0 34px,rgba(132,128,124,.10) 34px 35px),repeating-linear-gradient(120deg,transparent 0 48px,rgba(132,128,124,.10) 48px 49px),#ebe9e5; }
+.ukr-map-placeholder strong { font-size:31px; letter-spacing:-.035em; }
+.ukr-map-placeholder > span:not(.ukr-map-pin) { max-width:360px; color:#4e4948; }
+.ukr-map-placeholder small { font-size:11px; color:#777; }
+.ukr-map-pin { width:38px; height:38px; background:#d51d2c; border:6px solid rgba(255,255,255,.85); border-radius:50% 50% 50% 0; transform:rotate(-45deg); box-shadow:0 8px 23px rgba(154,19,38,.3); }
+.ukr-map-load { min-height:46px; color:#fff; background:#1b1819; border:1px solid #1b1819; border-radius:4px; font:inherit; font-weight:750; padding:10px 24px; }
+.ukr-map-load:hover { background:#b81a2e; border-color:#b81a2e; }
+.ukr-map-shell iframe { display:block; width:100%; height:100%; border:0; }
+
+/* Copyright + developer credit separate from the primary footer row. */
+.foot { padding-bottom:0; }
+.ukr-footer-primary { align-items:center; padding-bottom:28px; }
+.ukr-footer-meta { border-top:1px solid rgba(255,255,255,.14); }
+.ukr-footer-meta-inner { display:flex; justify-content:space-between; gap:14px 34px; flex-wrap:wrap; padding-block:17px; color:#aaa; font-size:12px; line-height:1.6; }
+.ukr-footer-meta-inner a { color:#fff; border-bottom:1px solid rgba(255,255,255,.45); text-underline-offset:3px; }
+.ukr-footer-meta-inner a:hover { color:#ff8390; border-color:#ff8390; }
+@media(max-width:1140px) {
+  .site-header .ukr-header-logo { width:185px; }
+  .site-header .nav { gap:15px; }
+}
+@media(max-width:900px) {
+  .site-header .ukr-header-logo { width:175px; }
+  .site-header .navlinks { white-space:normal; gap:10px; }
+  .site-header .navlinks.open { display:flex; }
+}
+@media(max-width:782px) {
+  body.admin-bar { --ukr-admin-offset:46px; }
+  .ukr-location-layout { grid-template-columns:1fr; gap:35px; }
+  .ukr-map-shell { height:390px; }
+}
+@media(max-width:640px) {
+  .site-header .ukr-header-logo { width:152px; }
+  .ukr-map-shell { height:350px; }
+  .ukr-location-description h2 { font-size:40px; }
+  .ukr-footer-primary { padding-bottom:22px; }
+  .ukr-footer-meta-inner { flex-direction:column; gap:6px; }
+  html { scroll-padding-top:75px; }
+  #top, #services, #works, #about, #process, #clients, #faq, #contact, #location { scroll-margin-top:78px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .site-header.ukr-smart-header { transition:none; }
+  .ukr-hero-v17 .heroart.has-image .ukr-hero-photo,
+  .ukr-category .visual.has-image img, .workvisual img { transform:none!important; will-change:auto!important; }
+  .ukr-depth-section::before,.ukr-depth-section::after { transform:none!important; will-change:auto!important; }
+}

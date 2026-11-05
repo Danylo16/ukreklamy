@@ -1,0 +1,116 @@
+/* UKreklamy v1.14.1: one-height / varied-width gallery, landscape modal, quiet client marks. */
+/* Every card is the same height; widths deliberately alternate. The zero border is intentional. */
+.ukr-works-v114 .worktrack {
+  align-items:stretch!important; gap:14px!important; padding-block:8px 18px!important;
+}
+.ukr-works-v114 .worktrack > .ukr-work-flip-card,
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n + 2),
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n) {
+  height:300px!important; min-height:300px!important; max-height:300px!important;
+  flex:0 0 292px!important; width:292px!important;
+  border:0!important; outline:0; background:transparent!important; box-shadow:none!important;
+}
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n + 2) { flex-basis:248px!important; width:248px!important; }
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n + 3) { flex-basis:360px!important; width:360px!important; }
+.ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n) { flex-basis:276px!important; width:276px!important; }
+.ukr-works-v114 .ukr-work-face { border-radius:10px!important; }
+.ukr-works-v114 .ukr-work-face-front { border:0!important; box-shadow:none!important; }
+.ukr-works-v114 .ukr-work-face-back { border:0!important; }
+.ukr-works-v114 .ukr-work-front-photo::after { background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.19) 65%,rgba(0,0,0,.85) 100%); }
+.ukr-works-v114 .ukr-work-front-caption { padding:19px 19px 18px; }
+.ukr-works-v114 .ukr-work-flipper { transition-duration:.58s; }
+.ukr-works-v114 .ukr-work-face-back h3 { margin-top:12px; }
+/* Client logos remain monochrome until hover, without stark white frames. */
+.ukr-clients-v114 .ukr-client-logo,
+.ukr-clients-v114 .ukr-client-logo:is(a,div) {
+  border:0!important; background:transparent!important; box-shadow:none!important;
+  padding:10px 18px!important; border-radius:10px;
+}
+.ukr-clients-v114 .ukr-client-logo:is(:hover,:focus-visible) { background:rgba(255,255,255,.58)!important; }
+.ukr-clients-v114 .ukr-client-logo img { filter:grayscale(1); opacity:.65; }
+/* The gallery is the hero of the dialog, copy follows underneath. */
+.ukr-works-v114 .ukr-work-dialog {
+  width:min(1000px,calc(100vw - 32px)); max-width:1000px; max-height:calc(100dvh - 24px);
+  border-radius:14px; overflow:auto; overscroll-behavior:contain;
+}
+.ukr-works-v114 .ukr-work-dialog::backdrop { background:rgba(12,10,12,.75); backdrop-filter:blur(4px); }
+.ukr-works-v114 .ukr-work-dialog[open] { animation:ukr115ModalEnter .3s cubic-bezier(.16,1,.3,1) both; }
+@keyframes ukr115ModalEnter { from { opacity:0; transform:translateY(18px) scale(.984); } to {opacity:1;transform:translateY(0) scale(1);} }
+.ukr-works-v114 .ukr-work-dialog-surface { padding:0 0 24px; }
+.ukr-works-v114 .ukr-work-dialog-close { top:14px;right:14px;z-index:9; }
+.ukr-works-v114 .ukr-work-detail-v115 { display:flex!important; flex-direction:column; gap:0!important; }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-images { position:relative; width:100%; min-width:0; padding:0; }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-track {
+  display:flex; width:100%; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
+  scroll-behavior:smooth; scrollbar-width:none; background:#e8e2df; border-radius:14px 14px 0 0;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-slide {
+  position:relative; flex:0 0 100%; width:100%; height:auto!important;
+  aspect-ratio:16 / 9!important; min-height:0; margin:0; overflow:hidden;
+  scroll-snap-align:start; isolation:isolate; background:#ddd3cd;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-slide .ukr-work-detail-ambient {
+  position:absolute; inset:-12%; width:124%!important;height:124%!important;
+  max-width:none; object-fit:cover!important; filter:blur(35px) brightness(.73) saturate(.75); opacity:.65;
+  transform:scale(1.03); pointer-events:none;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-slide .ukr-work-detail-primary {
+  position:relative; z-index:1; display:block; width:100%!important; height:100%!important;
+  object-fit:contain!important; object-position:center; background:transparent;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls {
+  pointer-events:none; position:absolute; inset:0; z-index:4; display:block; margin:0;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-carousel-nav {
+  pointer-events:auto; position:absolute; top:50%; transform:translateY(-50%); margin:0;
+  width:43px;height:43px; background:rgba(255,255,255,.93); border:0; box-shadow:0 5px 25px #0003;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-work-detail-prev {left:16px;right:auto;}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-work-detail-next {right:16px;left:auto;}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-count {
+  position:absolute; inset:auto auto 13px 16px; min-width:0; padding:6px 11px; border-radius:100px;
+  color:#fff; background:rgba(20,16,16,.72); font-size:12px; font-weight:700;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumbs {
+  display:flex; align-items:center; gap:9px; overflow-x:auto; padding:13px 25px 8px; scrollbar-width:thin;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumb {
+  flex:0 0 76px; width:76px;height:52px; padding:0; margin:0;
+  overflow:hidden; border:2px solid transparent; border-radius:7px; background:#e6e3df;
+  cursor:pointer; opacity:.65; transition:opacity .2s ease,border-color .2s ease,transform .2s ease;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumb img { display:block;width:100%;height:100%;object-fit:cover; }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumb:is(.is-active,:hover,:focus-visible) { opacity:1; border-color:var(--red,#d71931); }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumb:focus-visible { outline:2px solid var(--red,#d71931);outline-offset:3px; }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy {
+  padding:16px 25px 0!important; margin-top:8px; max-width:860px;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy .eyebrow { display:block; font-size:10px; margin-bottom:8px; }
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy h2 {
+  font-size:clamp(25px,3vw,39px); line-height:1.13; margin:0 0 12px; overflow-wrap:anywhere;
+}
+.ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-description { font-size:15px;line-height:1.65;max-width:70ch; }
+@media(max-width:760px) {
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card,
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n + 2),
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(3n) {
+    height:280px!important;min-height:280px!important;max-height:280px!important;
+    flex:0 0 min(74vw,280px)!important;width:min(74vw,280px)!important;
+  }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n + 2) { flex-basis:min(64vw,240px)!important;width:min(64vw,240px)!important; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n + 3) { flex-basis:min(82vw,320px)!important;width:min(82vw,320px)!important; }
+  .ukr-works-v114 .worktrack > .ukr-work-flip-card:nth-child(4n) { flex-basis:min(69vw,260px)!important;width:min(69vw,260px)!important; }
+  .ukr-works-v114 .ukr-work-dialog {width:calc(100vw - 20px);max-height:calc(100dvh - 20px);border-radius:10px;}
+  .ukr-works-v114 .ukr-work-dialog-surface {padding:0 0 22px;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumbs {padding-inline:14px;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-slide {aspect-ratio:16 / 10!important;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy {padding:16px 16px 0!important;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-carousel-nav {width:36px;height:36px;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-work-detail-prev {left:7px;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-controls .ukr-work-detail-next {right:7px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .ukr-works-v114 .ukr-work-dialog[open] {animation:none!important;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-track {scroll-behavior:auto;}
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-thumb {transition:none;}
+}

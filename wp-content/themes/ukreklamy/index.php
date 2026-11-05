@@ -1,0 +1,1 @@
+<?php get_header(); ?><section class="section wrap"><h1><?php esc_html_e('Кухня реклами','ukreklamy'); ?></h1><a href="<?php echo esc_url(home_url('/')); ?>">На головну</a></section><?php get_footer(); ?>

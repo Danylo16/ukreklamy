@@ -1,0 +1,142 @@
+/* UKreklamy 1.10 — full-bleed photographic hero, legible content, authentic section depth. */
+.ukr-hero-v17 {
+  min-height: 700px;
+  background: #0d0c0e;
+  isolation: isolate;
+  overflow: hidden;
+}
+.ukr-hero-v17::before {
+  background: linear-gradient(90deg, #0c0b0d 0%, #0d0b0d 35%, rgba(13,11,13,.6) 59%, #160e12 100%);
+  opacity: 1;
+  z-index: -2;
+}
+.ukr-hero-v17 .heroinner {
+  display: flex;
+  align-items: center;
+  min-height: 700px;
+  padding-top: 95px;
+  padding-bottom: 95px;
+  gap: 0;
+  isolation: isolate;
+}
+.ukr-hero-v17 .herocopy {
+  position: relative;
+  z-index: 3;
+  width: min(56%, 615px);
+  max-width: 615px;
+  text-shadow: 0 1px 6px rgba(0,0,0,.16);
+}
+.ukr-hero-v17 h1 {
+  font-size: clamp(49px, 5vw, 76px);
+  line-height: 1.06;
+  max-width: 660px;
+}
+.ukr-hero-v17 .heroart {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  right: calc((min(100vw, 1216px) - 100vw) / 2);
+  width: min(71vw, 1150px);
+  height: 100%;
+  min-height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  background: #100c10;
+  transform: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 20%, rgba(0,0,0,.65) 41%, #000 64%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 20%, rgba(0,0,0,.65) 41%, #000 64%);
+}
+.ukr-hero-v17 .heroart.has-image .ukr-hero-photo {
+  position: absolute;
+  display: block;
+  top: -120px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 240px);
+  inset: -120px 0 auto;
+  object-fit: cover;
+  transform: translate3d(0, var(--ukr-parallax-offset, 0px), 0);
+}
+.ukr-hero-v17 .heroart.has-image::after {
+  background: linear-gradient(0deg, rgba(7,6,8,.33), transparent 17%, transparent 77%, rgba(7,6,8,.15));
+}
+/* Avoid old entrance animation translating the entire full-bleed media plane. */
+@media (min-width:801px) and (prefers-reduced-motion:no-preference) {
+  .ukr-hero-v17 .heroart { animation: ukrFullHeroAppear 1.1s .08s both ease-out; }
+}
+@keyframes ukrFullHeroAppear { from { opacity: .55; } to { opacity: 1; } }
+
+/* Contact: preserve the validated lead form while matching the editorial red reference. */
+.contact .contactgrid { grid-template-columns: minmax(0, 1fr) minmax(0, 450px); gap: clamp(40px, 7vw, 110px); }
+.contact .ukr-contact-copy { padding-top: 5px; }
+.contact .ukr-contact-copy h2 { max-width: 540px; font-size: clamp(46px, 5.3vw, 77px); line-height: .99; letter-spacing: -.055em; margin: 11px 0 38px; }
+.contact .ukr-contact-copy > p { max-width: 420px; font-size: 15px; line-height: 1.65; }
+.contact .ukr-contact-custom-links { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 31px; }
+.contact .ukr-contact-custom-links a { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 800; color: #fff; padding: 7px 0; border: 0; background: none; text-decoration: none; transition: opacity .2s ease, transform .2s ease; }
+.contact .ukr-contact-custom-links a:hover { opacity: .8; transform: translateY(-2px); }
+.contact .ukr-contact-custom-links a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.contact .ukr-contact-custom-links a span { opacity: .7; }
+.contact .ukr-contact-address { margin-top: 16px; opacity: .8; font-size: 13px; }
+.contact .form.ukr-lead-form { max-width: 450px; padding: 26px; }
+
+/* FAQ: smooth vertical reveal, no layout jump, keyboard access, readable without JS. */
+.ukr-faq-list .ukr-faq-item { border-bottom: 1px solid #e8e4e2; }
+.ukr-faq-list .ukr-faq-item:first-child { border-top: 1px solid #e8e4e2; }
+.ukr-faq-list .ukr-faq-question { margin: 0; padding: 0; font-size: 16px; }
+.ukr-faq-list .ukr-faq-trigger { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 70px; padding: 19px 1px; gap: 22px; text-align: left; border: 0; border-radius: 0; color: #171717; background: transparent; font: inherit; font-weight: 750; cursor: pointer; }
+.ukr-faq-list .ukr-faq-trigger:hover { color: #ab1628; }
+.ukr-faq-list .ukr-faq-trigger:focus-visible { outline: 2px solid #bd1a2e; outline-offset: -2px; }
+.ukr-faq-indicator { display: block; flex: 0 0 25px; width: 25px; height: 25px; border: 1px solid #e5e0df; border-radius: 50%; position: relative; color: #b30e27; transition: border-color .23s, transform .3s cubic-bezier(.22,1,.36,1), background .23s; }
+.ukr-faq-indicator::before,.ukr-faq-indicator::after { content: ''; position: absolute; display: block; background: currentColor; border-radius: 1px; top: 11px; left: 7px; width: 9px; height: 2px; }
+.ukr-faq-indicator::after { transform: rotate(90deg); transition: transform .28s; }
+.ukr-faq-trigger[aria-expanded=true] .ukr-faq-indicator { background: #d51d2c; color: #fff; border-color: #d51d2c; transform: rotate(90deg); }
+.ukr-faq-trigger[aria-expanded=true] .ukr-faq-indicator::after { transform: rotate(0); }
+.ukr-faq-answer-shell { display: grid; grid-template-rows: minmax(0, 1fr); opacity: 1; transition: grid-template-rows .38s cubic-bezier(.22,1,.36,1), opacity .26s ease; }
+.ukr-faq-answer { overflow: hidden; min-height: 0; padding: 0; color: #595959; font-size: 14px; line-height: 1.7; }
+.ukr-faq-answer > div { padding: 0 32px 22px 1px; }
+.ukr-faq-answer p:last-child { margin: 0; }
+.ukr-faq-enhanced .ukr-faq-answer-shell { grid-template-rows: minmax(0,0fr); opacity: 0; }
+.ukr-faq-enhanced .ukr-faq-answer-shell[aria-hidden=false] { grid-template-rows: minmax(0,1fr); opacity: 1; }
+
+/* Replace rigid diagonal geometry with ambient depth: rich color, fewer distracting edges. */
+@media (min-width:801px) and (prefers-reduced-motion:no-preference) {
+  .about.ukr-depth-section::before { background: radial-gradient(ellipse 35% 45% at 78% 28%, rgba(168,44,58,.12),transparent 92%), radial-gradient(ellipse 26% 60% at 21% 77%, rgba(165,161,159,.20),transparent 85%); }
+  .about.ukr-depth-section::after { background: radial-gradient(ellipse 22% 32% at 91% 73%, rgba(170,14,34,.08),transparent 94%); }
+  .process.ukr-depth-section::before { background: radial-gradient(ellipse 52% 60% at 82% 22%, rgba(178,27,45,.34),transparent 88%), radial-gradient(ellipse 38% 65% at 15% 78%, rgba(113,9,21,.24),transparent 90%); }
+  .process.ukr-depth-section::after { background: radial-gradient(ellipse 30% 38% at 48% 52%, rgba(239,69,83,.10),transparent 92%); }
+  .contact.ukr-depth-section::before { background: radial-gradient(ellipse 54% 65% at 1% 76%, rgba(88,0,17,.22),transparent 89%), radial-gradient(ellipse 46% 50% at 92% 7%, rgba(255,188,194,.11),transparent 92%); }
+  .contact.ukr-depth-section::after { background: radial-gradient(ellipse 38% 47% at 54% 70%, rgba(114,0,21,.10),transparent 85%); }
+}
+@media(max-width:1000px) and (min-width:801px) {
+  .ukr-hero-v17 .herocopy { width: min(65%, 570px); }
+  .ukr-hero-v17 h1 { font-size: clamp(45px, 5vw, 57px); }
+  .ukr-hero-v17 .heroart { width: 72vw; }
+  .contact .contactgrid { gap: 28px; grid-template-columns:minmax(0,1fr) minmax(0,440px); }
+}
+@media(max-width:800px) {
+  .ukr-hero-v17 { min-height: 720px; }
+  .ukr-hero-v17 .heroinner { position:relative; display:flex; align-items:flex-end; min-height: 720px; padding-top: 330px; padding-bottom: 55px; }
+  .ukr-hero-v17 .heroart { position:absolute; inset:0; width:100%; height:100%; max-height:none; aspect-ratio:auto; border-radius:0; mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.68) 31%,transparent 71%); -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.68) 31%,transparent 71%); }
+  .ukr-hero-v17 .heroart.has-image .ukr-hero-photo { position:absolute; inset:0; width:100%; height:100%; transform:none!important; object-fit:cover; }
+  .ukr-hero-v17 .herocopy { width:100%; max-width:100%; }
+  .ukr-hero-v17 h1 { font-size:clamp(39px, 8vw, 59px); }
+  .contact .contactgrid { grid-template-columns:1fr; gap:26px; }
+  .contact .form.ukr-lead-form { max-width:100%; justify-self:stretch; }
+  .contact .ukr-contact-copy h2 { font-size: clamp(42px, 9vw, 62px); margin-bottom:22px; }
+}
+@media(max-width:420px) {
+  .ukr-hero-v17 { min-height: 680px; }
+  .ukr-hero-v17 .heroinner { min-height:680px; padding-top:300px; padding-bottom:45px; }
+  .ukr-hero-v17 h1 { font-size: clamp(37px, 10vw, 46px); }
+  .contact .ukr-contact-custom-links { gap: 6px 14px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ukr-faq-answer-shell,.ukr-faq-indicator,.ukr-faq-indicator::after { transition:none!important; }
+  .ukr-hero-v17 .heroart { animation:none!important; }
+}

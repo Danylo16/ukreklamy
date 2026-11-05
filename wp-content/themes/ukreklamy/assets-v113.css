@@ -1,0 +1,217 @@
+/* UKreklamy v1.13 — editorial carousels, media, CTA details.
+   Deliberately scoped: no changes to the approved desktop hero composition. */
+:root { --ukr-control-shadow: 0 8px 28px rgba(17,14,18,.13); }
+
+/* Consistent two-sided carousel navigation. No controls below either track. */
+.ukr-carousel-nav {
+  position: absolute; top: 50%; z-index: 5;
+  display: grid; place-items: center;
+  width: 46px; height: 46px; padding: 0;
+  color: #191919; background: #fff;
+  border: 1px solid rgba(22,20,22,.13); border-radius: 50%;
+  box-shadow: var(--ukr-control-shadow);
+  transform: translateY(-50%);
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  cursor: pointer;
+}
+.ukr-carousel-nav svg { width: 22px; height: 22px; transition: transform .24s cubic-bezier(.2,.8,.2,1); }
+.ukr-carousel-nav:hover:not(:disabled) { color: #fff; background: var(--red); border-color: var(--red); box-shadow: 0 10px 28px rgba(213,29,44,.22); }
+.ukr-carousel-nav:not(:disabled):hover svg { transform: translateX(3px); }
+.ukr-carousel-nav:is(.ukr-clients-prev,.ukr-works-prev):not(:disabled):hover svg { transform: translateX(-3px); }
+.ukr-carousel-nav:disabled { opacity: .28; cursor: default; box-shadow: none; }
+.ukr-carousel-nav:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* Customers: monochrome by default, brand color on hover / keyboard focus. */
+.ukr-clients-v113 { padding-block: 64px; background: #fbfaf9; }
+.ukr-clients-v113 .ukr-clients-layout { grid-template-columns: 205px minmax(0,1fr); gap: 40px; }
+.ukr-clients-v113 .ukr-clients-heading .eyebrow { display:block; margin-bottom:12px; font-size:10px; }
+.ukr-clients-v113 h2 { font-size: clamp(23px,2.3vw,31px); line-height:1.08; }
+.ukr-clients-v113 .ukr-clients-gallery { position:relative; padding: 0 42px; min-width: 0; }
+.ukr-clients-v113 .ukr-clients-track { gap: 14px; padding: 4px 1px 6px; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+.ukr-clients-v113 .ukr-client-logo {
+  flex: 0 0 clamp(145px,18vw,190px); height: 100px;
+  padding: 17px 21px; border: 1px solid #e8e4e0; border-radius: 10px;
+  background:#fff; box-shadow: 0 4px 16px rgba(20,19,17,.025);
+  transition: transform .24s ease, border-color .24s ease, box-shadow .24s ease;
+}
+.ukr-clients-v113 .ukr-client-logo img {
+  width:100%; height:100%; object-fit:contain;
+  filter: grayscale(1); opacity:.61;
+  transition: filter .32s ease, opacity .32s ease;
+}
+.ukr-clients-v113 .ukr-client-logo:is(:hover,:focus-visible) {
+  transform: translateY(-3px); border-color:#d8c6c8; box-shadow:0 10px 30px rgba(28,20,20,.06);
+}
+.ukr-clients-v113 .ukr-client-logo:is(:hover,:focus-visible) img { filter:grayscale(0); opacity:1; }
+.ukr-clients-v113 .ukr-clients-prev { left:0; }
+.ukr-clients-v113 .ukr-clients-next { right:0; }
+.ukr-clients-v113 .ukr-clients-gallery.is-static { padding-inline:0; }
+.ukr-clients-v113 .ukr-clients-gallery.is-static .ukr-carousel-nav { display:none; }
+
+/* Works: a proper editorial card with photo as the visual, not a floating thumbnail. */
+.ukr-works-v113 { min-width:0; }
+.ukr-works-v113 .ukr-works-gallery { position:relative; min-width:0; padding-inline: 26px; }
+.ukr-works-v113 .worktrack {
+  display:flex; align-items:stretch; gap:20px;
+  width:100%; overflow-x:auto; overflow-y:hidden;
+  padding:3px 2px 8px; margin:0;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none;
+  overscroll-behavior-x:contain;
+}
+.ukr-works-v113 .worktrack::-webkit-scrollbar { display:none; }
+.ukr-works-v113 .worktrack > .work {
+  flex: 0 0 min(39%,440px); min-width:0; height:470px; min-height:0;
+  position:relative; display:block; padding:0; margin:0; overflow:hidden;
+  border-radius:12px; background:#24171c; scroll-snap-align:start;
+  isolation:isolate; color:white;
+}
+.ukr-works-v113 .work::before { content:none; }
+.ukr-works-v113 .workvisual { position:absolute; inset:0; overflow:hidden; background:linear-gradient(145deg,#1c1115,#5d1121); }
+.ukr-works-v113 .workvisual::after {
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.02) 23%,rgba(0,0,0,.26) 52%,rgba(0,0,0,.9) 100%);
+  pointer-events:none;
+}
+.ukr-works-v113 .workvisual img {
+  display:block; width:100%; height:100%; object-fit:cover;
+  transform:none!important; will-change:auto!important;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.ukr-works-v113 .work:is(:hover,:focus-within) .workvisual img { transform:scale(1.04)!important; }
+.ukr-works-v113 .ukr-work-no-image { display:grid; place-items:center; height:100%; padding:24px; text-align:center; color:#eee; font-size:13px; }
+.ukr-works-v113 .ukr-work-card-copy {
+  position:absolute; z-index:2; inset:auto 0 0;
+  padding:35px 28px 27px; display:flex; flex-direction:column;
+  gap:10px; color:#fff; pointer-events:none;
+}
+.ukr-works-v113 .ukr-work-kicker { font-size:10px; font-weight:800; letter-spacing:.17em; text-transform:uppercase; color:#ff9aa4; }
+.ukr-works-v113 .ukr-work-card-copy h3 { font-size:clamp(23px,2.3vw,30px); line-height:1.1; margin:0; letter-spacing:-.035em; color:#fff; overflow-wrap:anywhere; }
+.ukr-works-v113 .ukr-work-card-copy p {
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+  overflow:hidden; max-height:3.3em; margin:0; font-size:13px; line-height:1.55; color:#e9e5e6;
+}
+.ukr-works-v113 .ukr-work-open {
+  pointer-events:auto; display:inline-flex; align-items:center; justify-content:space-between; gap:12px;
+  align-self:flex-start; margin-top:8px; padding:7px 2px 9px 0;
+  background:none; border:0; border-bottom:1px solid #ffffffb0;
+  color:#fff; font-size:13px; line-height:1.4; font-weight:800;
+  transition:border-color .2s ease,color .2s ease;
+}
+.ukr-works-v113 .ukr-work-open svg { width:19px; height:19px; transition:transform .24s ease; }
+.ukr-works-v113 .ukr-work-open:hover { color:#fff; border-color:#fff; }
+.ukr-works-v113 .ukr-work-open:hover svg { transform:translateX(5px); }
+.ukr-works-v113 .ukr-works-prev { left: 0; }
+.ukr-works-v113 .ukr-works-next { right: 0; }
+.ukr-works-v113 .ukr-works-gallery.is-static .ukr-carousel-nav { display:none; }
+.ukr-works-v113 .ukr-works-gallery.is-static { padding-inline:0; }
+
+/* Portfolio lightbox: accessible native dialog, photographic emphasis. */
+.ukr-work-dialog {
+  width:min(1060px,calc(100vw - 32px)); max-width:1060px;
+  max-height:calc(100dvh - 32px); margin:auto; padding:0; border:0; border-radius:14px;
+  color:var(--ink); background:#fff; overflow:auto; overscroll-behavior:contain;
+  box-shadow:0 22px 85px rgba(0,0,0,.4);
+}
+.ukr-work-dialog::backdrop { background:rgba(10,10,12,.7); backdrop-filter:blur(5px); }
+.ukr-work-dialog[open] { animation:ukr113DialogIn .25s cubic-bezier(.22,1,.36,1); }
+@keyframes ukr113DialogIn { from { opacity:0;transform:translateY(14px) scale(.985) } to { opacity:1;transform:none } }
+.ukr-work-dialog-surface { position:relative; padding:28px; }
+.ukr-work-dialog-close {
+  position:absolute;right:15px;top:15px;z-index:3;display:grid;place-items:center;
+  width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid #e0ddda;
+  color:#111;box-shadow:0 4px 18px #0002;
+}
+.ukr-work-dialog-close svg {width:20px;height:20px;}
+.ukr-work-detail {display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:start;}
+.ukr-work-detail-images { min-width:0; position:relative; }
+.ukr-work-detail-track {display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:9px;background:#f5f3f0;}
+.ukr-work-detail-track::-webkit-scrollbar { display:none; }
+.ukr-work-detail-slide {flex:0 0 100%;width:100%;aspect-ratio:4/3;margin:0;scroll-snap-align:start;display:grid;place-items:center;}
+.ukr-work-detail-slide img { display:block;width:100%;height:100%;object-fit:contain; }
+.ukr-work-detail-controls {display:flex;justify-content:center;align-items:center;gap:13px;margin-top:14px;}
+.ukr-work-detail-controls .ukr-carousel-nav {position:static;transform:none;width:39px;height:39px;}
+.ukr-work-detail-count {font-size:12px;color:#737073;min-width:50px;text-align:center;font-variant-numeric:tabular-nums;}
+.ukr-work-detail-copy {min-width:0;padding:28px 25px 8px 0;overflow-wrap:anywhere;}
+.ukr-work-detail-copy h2 {font-size:clamp(29px,3vw,43px);line-height:1.08;margin:14px 0 22px;}
+.ukr-work-detail-description {font-size:15px;line-height:1.7;color:#525052;}
+.ukr-work-detail-description img {max-width:100%;height:auto;}
+
+/* Service modal: neutral photo surface instead of black letterboxing. */
+.ukr-service-dialog {max-width:1020px;width:min(1020px,calc(100% - 32px));}
+.ukr-service-dialog .ukr-dialog-content {padding:30px 34px;}
+.ukr-service-dialog .ukr-detail-layout {grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:34px;align-items:stretch;}
+.ukr-service-dialog .ukr-gallery {background:#f3f2f0;border-radius:9px;border:1px solid #eae7e4;}
+.ukr-service-dialog .ukr-gallery-slide {aspect-ratio:4/3;background:#f3f2f0;}
+.ukr-service-dialog .ukr-gallery-slide img {object-fit:contain;max-width:100%;max-height:100%;}
+.ukr-service-dialog .ukr-gallery-empty {background:linear-gradient(130deg,#f5f3f1,#ebe6e2);color:#686262;}
+.ukr-service-dialog .ukr-gallery-arrow {width:42px;height:42px;font-size:27px;border:1px solid #e2dfdc;background:rgba(255,255,255,.96);}
+.ukr-service-dialog .ukr-detail-main {padding:12px 0 0;min-height:0;}
+.ukr-service-dialog .ukr-detail-title {font-size:clamp(30px,3.2vw,44px);line-height:1.08;}
+.ukr-service-dialog .ukr-detail-description {line-height:1.74;color:#555;}
+.ukr-service-dialog .ukr-detail-price {margin-top:auto;padding-top:22px;}
+.ukr-service-dialog .ukr-service-inquiry {margin-top:0;}
+
+/* Team image controlled from WordPress -> UKreklamy -> Головна сторінка. */
+.about .aboutpic.ukr-team-has-photo { position:relative; overflow:hidden; background:#ebe8e4; }
+.about .aboutpic.ukr-team-has-photo img { display:block;width:100%;height:100%;object-fit:cover; }
+
+/* Animated icons with no reflow or new dependencies; preserve existing CTA colors. */
+.site-header .ukr-nav-cta, .ukr-hero-v17 .heroactions .btn {gap:16px;}
+.ukr-nav-cta svg, .ukr-hero-v17 .heroactions .btn svg {width:19px;height:19px;flex:0 0 19px;transition:transform .26s cubic-bezier(.2,.8,.2,1);}
+.ukr-nav-cta:hover svg, .ukr-nav-cta:focus-visible svg, .ukr-hero-v17 .ukr-hero-cta-primary:is(:hover,:focus-visible) svg {transform:translateX(5px);}
+.ukr-hero-v17 .ukr-hero-cta-works:is(:hover,:focus-visible) svg {transform:translateY(5px);}
+.ukr-hero-v17 .heroactions .btn.secondary {transition:background-color .24s ease,border-color .24s ease,transform .24s ease;}
+.ukr-hero-v17 .heroactions .btn.secondary:is(:hover,:focus-visible) {background:rgba(255,255,255,.10);border-color:#fff;transform:translateY(-2px);}
+
+@media (max-width:1100px) {
+  .ukr-works-v113 .worktrack>.work {flex-basis:47%;height:430px;}
+}
+@media (max-width:800px) {
+  .ukr-clients-v113 .ukr-clients-layout {grid-template-columns:1fr;gap:20px;}
+  .ukr-clients-v113 .ukr-clients-gallery {padding-inline:38px;}
+  .ukr-clients-v113 .ukr-client-logo {height:90px;flex-basis:158px;}
+  .ukr-carousel-nav {width:40px;height:40px;}
+  .ukr-carousel-nav svg {width:20px;height:20px;}
+  .ukr-works-v113 .worktrack>.work {flex-basis:70%;height:420px;}
+  .ukr-work-dialog .ukr-work-detail {grid-template-columns:1fr;gap:10px;}
+  .ukr-work-dialog .ukr-work-detail-copy {padding:0 6px 5px;}
+  .ukr-work-dialog-surface {padding:20px;}
+  .ukr-service-dialog .ukr-detail-layout {grid-template-columns:1fr;gap:18px;}
+  .ukr-service-dialog .ukr-dialog-content {padding:20px;}
+  .ukr-service-dialog .ukr-detail-main {padding:0 4px 8px;}
+}
+@media (max-width:640px) {
+  .ukr-clients-v113 {padding-block:44px;}
+  .ukr-clients-v113 .ukr-clients-gallery {padding-inline:34px;}
+  .ukr-clients-v113 .ukr-client-logo {height:84px;flex-basis:140px;padding:14px;}
+  .ukr-works-v113 .ukr-works-gallery {padding-inline:19px;}
+  .ukr-works-v113 .worktrack {gap:13px;}
+  .ukr-works-v113 .worktrack>.work {flex-basis:min(85vw,340px);height:410px;}
+  .ukr-works-v113 .ukr-work-card-copy {padding:24px 22px 21px;}
+  .ukr-works-v113 .ukr-work-card-copy h3 {font-size:24px;}
+  .ukr-works-v113 .ukr-works-gallery .ukr-carousel-nav {width:36px;height:36px;}
+  .ukr-work-dialog {width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border-radius:11px;}
+  .ukr-work-dialog-surface {padding:12px;}
+  .ukr-work-detail-slide {aspect-ratio:1/1;}
+  .ukr-work-detail-copy h2 {font-size:29px;}
+  .ukr-service-dialog .ukr-dialog-content {padding:12px;}
+  .ukr-service-dialog .ukr-gallery-slide {aspect-ratio:4/3;}
+  .ukr-service-dialog .ukr-detail-title {font-size:30px;}
+  .ukr-service-dialog .ukr-dialog-close {top:18px;right:18px;}
+  .ukr-hero-v17 .heroactions .btn {justify-content:space-between!important;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .ukr-clients-v113 .ukr-client-logo,.ukr-clients-v113 .ukr-client-logo img,
+  .ukr-works-v113 .workvisual img,.ukr-carousel-nav,.ukr-carousel-nav svg,
+  .ukr-nav-cta svg,.ukr-hero-v17 .heroactions .btn svg,.ukr-works-v113 .ukr-work-open svg {transition:none!important;}
+  .ukr-work-dialog[open] {animation:none!important;}
+  .ukr-clients-v113 .ukr-clients-track,.ukr-works-v113 .worktrack {scroll-behavior:auto;}
+}
+/* Keep portfolio detail arrows alongside the photo, never in a bottom toolbar. */
+.ukr-work-detail-controls {
+  position:absolute; inset:0 8px; margin:0;
+  display:flex; justify-content:space-between; align-items:center;
+  pointer-events:none;
+}
+.ukr-work-detail-controls .ukr-carousel-nav {position:static;transform:none;width:42px;height:42px;pointer-events:auto;}
+.ukr-work-detail-controls .ukr-work-detail-count {position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden;}

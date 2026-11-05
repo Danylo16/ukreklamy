@@ -1,0 +1,159 @@
+/* UKreklamy v1.12.1 — MOBILE REDESIGN. Desktop >=801px remains identical. */
+@media (max-width:800px) {
+  /* Editorial mobile hero: copy first, photograph beneath, never text over image. */
+  .ukr-hero-v17 {
+    display:block;
+    min-height:0 !important;
+    height:auto !important;
+    background:#0d0c0e;
+    overflow:clip;
+    isolation:isolate;
+  }
+  .ukr-hero-v17::before { background: radial-gradient(ellipse at 100% 4%,rgba(133,21,42,.15),transparent 65%), #0d0c0e; z-index:-1; }
+  .ukr-hero-v17 .heroinner {
+    position:relative;
+    z-index:1;
+    display:flex !important;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    gap:0;
+    min-height:0 !important;
+    height:auto !important;
+    padding-top:clamp(28px,5vw,46px) !important;
+    padding-bottom:0 !important;
+  }
+  .ukr-hero-v17 .heroinner::before { display:none !important; content:none !important; }
+  .ukr-hero-v17 .herocopy {
+    order:0;
+    display:block;
+    position:relative;
+    isolation:isolate;
+    z-index:2;
+    width:100% !important;
+    max-width:600px !important;
+    margin:0 auto;
+    padding:0 0 30px !important;
+    text-shadow:none;
+  }
+  .ukr-hero-v17 .herocopy .label {
+    font-size:10px;
+    line-height:1.5;
+    letter-spacing:.13em;
+    max-width:100%;
+    flex-wrap:wrap;
+  }
+  .ukr-hero-v17 h1 {
+    font-size:clamp(37px,7.8vw,58px) !important;
+    line-height:1.055;
+    letter-spacing:-.05em;
+    margin:15px 0 17px !important;
+    max-width:560px;
+    text-wrap:balance;
+  }
+  .ukr-hero-v17 h1 em { display:block; color:var(--ukr-brand-accent,#e02a3c); }
+  .ukr-hero-v17 .herocopy > p {
+    color:#dfdadd;
+    max-width:520px;
+    font-size:clamp(14px,2.4vw,17px) !important;
+    line-height:1.55;
+    margin:0 !important;
+  }
+  .ukr-hero-v17 .heroactions {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:24px !important;
+    max-width:510px;
+  }
+  .ukr-hero-v17 .heroactions .btn {
+    flex:1 1 210px;
+    min-height:48px;
+    width:auto !important;
+    padding:11px 15px;
+    text-align:center;
+    justify-content:center;
+    font-size:13px;
+  }
+  .ukr-hero-v17 .heroactions .btn.secondary {border-color:rgba(255,255,255,.62);}
+  /* Use the selected CMS image as a distinct visual panel, not a full-height background. */
+  .ukr-hero-v17 .heroart {
+    order:1;
+    display:block !important;
+    position:relative !important;
+    inset:auto !important;
+    z-index:1;
+    flex:none;
+    width:calc(100% + 40px) !important;
+    height:clamp(190px,37vw,310px) !important;
+    min-height:0 !important;
+    max-height:none !important;
+    margin:0 -20px !important;
+    padding:0;
+    overflow:hidden;
+    border:0;
+    border-radius:0;
+    background:linear-gradient(120deg,#1e1417,#100d0f);
+    box-shadow:none;
+    aspect-ratio:auto !important;
+    opacity:1;
+    transform:none !important;
+    animation:none !important;
+    -webkit-mask-image:none !important;
+    mask-image:none !important;
+  }
+  .ukr-hero-v17 .heroart.has-image .ukr-hero-photo {
+    position:absolute !important;
+    display:block;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    max-height:none !important;
+    object-fit:cover;
+    object-position:75% 47%;
+    opacity:1;
+    transform:none !important;
+    animation:none !important;
+    will-change:auto !important;
+  }
+  .ukr-hero-v17 .heroart.ukr-hero-position-left .ukr-hero-photo {object-position:25% 47%;}
+  .ukr-hero-v17 .heroart.ukr-hero-position-center .ukr-hero-photo {object-position:65% 47%;}
+  .ukr-hero-v17 .heroart.ukr-hero-position-right .ukr-hero-photo {object-position:88% 47%;}
+  .ukr-hero-v17 .heroart.has-image::after {
+    display:block;
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,#0d0c0e 0%,rgba(13,12,14,.06) 29%,rgba(13,12,14,.02) 77%,rgba(13,12,14,.54) 100%);
+    pointer-events:none;
+  }
+  .ukr-hero-v17 .heroart:not(.has-image) {display:grid !important;place-items:center;}
+  .ukr-hero-v17 .heroart:not(.has-image)::before {display:none;}
+  .ukr-hero-v17 .heroart:not(.has-image) span {position:static;}
+  /* Remove the top spacer when the WordPress mobile admin bar scrolls away.
+     WordPress uses position:absolute (not fixed) for #wpadminbar <=782px. */
+  html, body { max-width:100%; }
+  .site-header.ukr-smart-header { background:#fff; }
+  .site-header .nav { min-height:68px; padding-block:10px; }
+  .site-header .navlinks.open {z-index:140;}
+}
+@media (max-width:782px) {
+  body.admin-bar { --ukr-admin-offset:0px; }
+  .site-header.ukr-smart-header {top:0;}
+}
+@media (max-width:640px) {
+  .ukr-hero-v17 .heroinner {padding-top:32px !important;}
+  .ukr-hero-v17 .herocopy {padding-bottom:26px !important;}
+  .ukr-hero-v17 h1 {font-size:clamp(36px,10vw,45px) !important;}
+  .ukr-hero-v17 .heroactions {display:grid;grid-template-columns:1fr;gap:9px;margin-top:22px !important;}
+  .ukr-hero-v17 .heroactions .btn {min-height:47px;flex:auto;width:100% !important;}
+  .ukr-hero-v17 .heroactions .btn.secondary {background:rgba(255,255,255,.035);}
+  .ukr-hero-v17 .heroart {height:clamp(205px,54vw,260px) !important;}
+}
+@media (max-width:360px) {
+  .ukr-hero-v17 .heroinner {padding-top:26px !important;}
+  .ukr-hero-v17 h1 {font-size:35px !important;}
+  .ukr-hero-v17 .herocopy > p {font-size:14px !important;}
+  .ukr-hero-v17 .heroart {width:calc(100% + 32px) !important; margin-inline:-16px !important; height:205px !important;}
+}

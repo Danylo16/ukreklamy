@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Set DB_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  wordpress:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: |
+        define('UKR_TELEGRAM_TOKEN', getenv('UKR_TELEGRAM_TOKEN') ?: '');
+        define('UKR_TELEGRAM_CHAT_IDS', getenv('UKR_TELEGRAM_CHAT_IDS') ?: '');
+        define('DISALLOW_FILE_EDIT', true);
+        define('WP_AUTO_UPDATE_CORE', 'minor');
+      UKR_TELEGRAM_TOKEN: ${UKR_TELEGRAM_TOKEN:-}
+      UKR_TELEGRAM_CHAT_IDS: ${UKR_TELEGRAM_CHAT_IDS:-}
+    volumes:
+      - wp_data:/var/www/html
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zz-ukreklamy-uploads.ini:ro
+      - ./wp-content/themes/ukreklamy:/var/www/html/wp-content/themes/ukreklamy:ro
+      - ./wp-content/plugins/ukreklamy-core:/var/www/html/wp-content/plugins/ukreklamy-core:ro
+volumes:
+  db_data:
+  wp_data:

@@ -1,0 +1,8 @@
+/* FAQ v1.12.1 — animate real content height, never crop long answers. */
+.ukr-faq-list .ukr-faq-answer-shell {display:block; height:auto; overflow:visible; opacity:1;}
+.ukr-faq-list .ukr-faq-answer {overflow:visible;min-height:0; height:auto; padding:0;}
+.ukr-faq-list .ukr-faq-answer > div {overflow:visible; max-height:none; padding:0 32px 22px 1px; overflow-wrap:anywhere;}
+.ukr-faq-enhanced .ukr-faq-answer-shell {height:0;overflow:hidden;opacity:1;transition:height .34s cubic-bezier(.22,1,.36,1);}
+.ukr-faq-enhanced .ukr-faq-answer-shell[aria-hidden=false] {grid-template-rows:none;opacity:1;}
+@media (max-width:640px) {.ukr-faq-list .ukr-faq-answer > div {padding-right:12px;}}
+@media (prefers-reduced-motion:reduce) {.ukr-faq-enhanced .ukr-faq-answer-shell {transition:none!important;}}

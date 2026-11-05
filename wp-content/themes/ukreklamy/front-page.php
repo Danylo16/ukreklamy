@@ -1,0 +1,1 @@
+<?php get_header(); foreach(['hero','stats','services','about','works','process','clients','faq','contact','location'] as $part) get_template_part('template-parts/'.$part); get_footer();

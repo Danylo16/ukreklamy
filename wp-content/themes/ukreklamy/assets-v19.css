@@ -1,0 +1,40 @@
+/* UKreklamy v1.9: approved-client carousel, editorial FAQ, color-section depth. */
+.ukr-clients{background:#fff;padding:46px 0;border-bottom:1px solid var(--line)}
+.ukr-clients-layout{display:grid!important;grid-template-columns:210px minmax(0,1fr);align-items:center;gap:35px}
+.ukr-clients h2{font-size:22px;line-height:1.1;margin:0;min-width:0;letter-spacing:-.035em}
+.ukr-clients-gallery{min-width:0;position:relative}
+.ukr-clients-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding:3px 2px 7px}
+.ukr-clients-track::-webkit-scrollbar{display:none}
+.ukr-client-logo{flex:0 0 clamp(140px,19vw,190px);height:88px;background:#fff;border:1px solid #e6e3e0;display:grid;place-items:center;border-radius:4px;padding:15px;scroll-snap-align:start;transition:border-color .2s ease,transform .2s ease}
+.ukr-client-logo img{display:block;width:100%;height:100%;object-fit:contain;filter:grayscale(1);opacity:.84;transition:filter .25s ease,opacity .25s ease}
+.ukr-client-logo:hover,.ukr-client-logo:focus-visible{border-color:#bfc1c1;transform:translateY(-2px)}
+.ukr-client-logo:hover img,.ukr-client-logo:focus-visible img{filter:grayscale(0);opacity:1}
+.ukr-clients-controls{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:8px}
+.ukr-clients-controls button{width:36px;height:32px;border:1px solid #ddd;background:#fff;color:#111;border-radius:4px}
+.ukr-clients-count{font-size:12px;color:#6f6f6f;font-variant-numeric:tabular-nums;min-width:50px;text-align:center}
+.ukr-faq{background:#fff}
+.ukr-faq-grid{display:grid;grid-template-columns:minmax(0,0.95fr) minmax(0,1.1fr);gap:clamp(38px,6vw,100px)}
+.ukr-faq-intro h2{font-size:clamp(40px,4.5vw,62px);max-width:380px;letter-spacing:-.055em;line-height:1.02;margin:10px 0 40px}
+.ukr-faq-intro>p{max-width:340px;color:var(--muted);font-size:14px}
+.ukr-faq-contact{display:inline-block;color:#a51020;font-weight:750;font-size:13px;margin-top:18px;text-decoration:underline;text-underline-offset:4px}
+.ukr-faq-list{min-width:0}
+.ukr-faq-item{border-bottom:1px solid #e9e6e3}
+.ukr-faq-item:first-child{border-top:1px solid #e9e6e3}
+.ukr-faq-item h3{font-size:16px;font-weight:750;line-height:1.3;letter-spacing:-.01em;margin:0;padding:20px 1px 4px}
+.ukr-faq-answer{padding:0 36px 20px 1px;font-size:14px;line-height:1.65;color:#575757}
+.ukr-faq-answer p:last-child{margin-bottom:0}
+.ukr-faq-empty{background:#f7f6f5;border-left:3px solid #d51d2c;padding:18px;color:#5b5b5b;font-size:14px}
+/* Parallax backgrounds are positioned independently of interactive content and remain clipped. */
+@media(min-width:801px) and (prefers-reduced-motion:no-preference){
+  .ukr-color-depth{position:relative;isolation:isolate;overflow:hidden}
+  .ukr-color-depth::before{content:"";position:absolute;inset:-150px -8%;z-index:0;pointer-events:none;will-change:transform;transform:translate3d(0,var(--ukr-color-depth,0px),0)}
+  .ukr-color-depth>.wrap{position:relative;z-index:1}
+  .hero.ukr-color-depth::before{background:radial-gradient(ellipse 44% 62% at 82% 48%,rgba(219,19,53,.26) 0%,transparent 75%),linear-gradient(105deg,rgba(13,13,13,.08),rgba(101,13,29,.22));}
+  .about.ukr-color-depth::before{background:radial-gradient(ellipse 48% 66% at 13% 20%,rgba(181,27,47,.12),transparent 78%),radial-gradient(ellipse 38% 60% at 92% 84%,rgba(129,86,68,.09),transparent 75%)}
+  .process.ukr-color-depth::before{background:radial-gradient(ellipse 43% 57% at 82% 42%,rgba(195,21,44,.28),transparent 76%),radial-gradient(ellipse 38% 54% at 8% 93%,rgba(91,17,39,.24),transparent 80%);inset:-150px -8%}
+  .contact.ukr-color-depth::before{background:radial-gradient(ellipse 46% 65% at 90% 12%,rgba(255,255,255,.17),transparent 76%),radial-gradient(ellipse 44% 65% at 10% 92%,rgba(95,0,17,.13),transparent 78%)}
+  /* Avoid earlier process glow rules fighting for the same transform property. */
+  .process.ukr-color-depth::before{transform:translate3d(0,var(--ukr-color-depth,0px),0)}
+}
+@media(max-width:800px){.ukr-clients-layout{grid-template-columns:1fr;gap:18px}.ukr-client-logo{flex-basis:160px}.ukr-faq-grid{grid-template-columns:1fr;gap:18px}.ukr-faq-intro h2{max-width:none;margin-bottom:18px;font-size:clamp(36px,8vw,52px)}.ukr-faq-item h3{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.ukr-client-logo,.ukr-client-logo img,.ukr-faq-plus{transition:none!important}.ukr-color-depth::before{transform:none!important;will-change:auto!important}}

@@ -1,0 +1,97 @@
+/* UKreklamy 1.9.1 — visually readable decorative parallax.
+   Two independent geometric planes move at different speeds. The content never moves.
+   No background-attachment:fixed, no library, no extra network images. */
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .ukr-depth-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .ukr-depth-section > .wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .ukr-depth-section::before,
+  .ukr-depth-section::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    inset: -205px -14%;
+    z-index: 0;
+    background-repeat: no-repeat;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .ukr-depth-section::before {
+    transform: translate3d(0, var(--ukr-depth-near, 0px), 0);
+  }
+  .ukr-depth-section::after {
+    transform: translate3d(0, var(--ukr-depth-far, 0px), 0);
+  }
+
+  /* Light about section: tangible, clean diagonal paper slabs + restrained brand-red accent. */
+  .about.ukr-depth-section::before {
+    background:
+      linear-gradient(116deg, transparent 0 38%, rgba(199, 194, 188, .46) 38.2% 53%, transparent 53.2%),
+      linear-gradient(116deg, transparent 0 72%, rgba(216, 209, 203, .42) 72.3% 86%, transparent 86.3%);
+  }
+  .about.ukr-depth-section::after {
+    background:
+      linear-gradient(116deg, transparent 0 66.5%, rgba(176, 22, 40, .16) 66.7% 67.1%, transparent 67.3%),
+      radial-gradient(ellipse 30% 40% at 85% 75%, rgba(158, 28, 42, .12), transparent 80%);
+  }
+
+  /* Dark process section: two bold red planes with clearly different apparent speeds. */
+  .process.ukr-depth-section::before {
+    background:
+      linear-gradient(120deg, transparent 0 45%, rgba(142, 12, 32, .50) 45.3% 63%, transparent 63.3%),
+      radial-gradient(ellipse 42% 52% at 83% 30%, rgba(236, 38, 63, .28), transparent 78%);
+  }
+  .process.ukr-depth-section::after {
+    background:
+      linear-gradient(120deg, transparent 0 68%, rgba(252, 81, 99, .26) 68.2% 68.8%, transparent 69%),
+      linear-gradient(120deg, transparent 0 27%, rgba(255, 255, 255, .055) 27.2% 35%, transparent 35.2%);
+  }
+
+  /* Red consultation section: dark and pale branded planes, still behind the form. */
+  .contact.ukr-depth-section::before {
+    background:
+      linear-gradient(116deg, transparent 0 43%, rgba(115, 1, 20, .30) 43.3% 65%, transparent 65.3%),
+      radial-gradient(ellipse 42% 65% at 12% 80%, rgba(125, 0, 22, .25), transparent 82%);
+  }
+  .contact.ukr-depth-section::after {
+    background:
+      linear-gradient(116deg, transparent 0 74%, rgba(255, 255, 255, .19) 74.2% 74.8%, transparent 75%),
+      linear-gradient(116deg, transparent 0 29%, rgba(255, 194, 199, .13) 29.2% 38%, transparent 38.2%);
+  }
+}
+/* Make the unavailable sections unmistakable during editing, but never expose fake clients. */
+.ukr-editorial-empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  background: #fff7f8;
+  border: 1px dashed #c95c66;
+  border-radius: 5px;
+  color: #5f2830;
+  font-size: 13px;
+  padding: 16px 20px;
+  line-height: 1.55;
+}
+.ukr-editorial-empty a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: #9a1224;
+  font-weight: 700;
+}
+.ukr-clients-layout > .ukr-editorial-empty { min-width: 0; }
+@media(max-width:800px) {
+  .ukr-editorial-empty { font-size: 12px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ukr-depth-section::before, .ukr-depth-section::after {
+    transform: none !important;
+    will-change: auto !important;
+  }
+}
