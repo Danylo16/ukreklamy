@@ -166,7 +166,7 @@ final class UKR_Site_Content {
     }
 
     public static function menu(): void {
-        add_submenu_page('ukr-homepage', 'Тексти сайту', 'Тексти сайту', 'manage_options', self::SLUG, [__CLASS__, 'page']);
+        add_submenu_page('ukr-homepage', 'Тексти сайту', 'Тексти сайту', UKR_Access::EDIT, self::SLUG, [__CLASS__, 'page']);
     }
 
     public static function register(): void {
@@ -176,7 +176,7 @@ final class UKR_Site_Content {
     }
 
     public static function page(): void {
-        if (!current_user_can('manage_options')) wp_die('Недостатньо прав.');
+        if (!current_user_can(UKR_Access::EDIT)) wp_die('Недостатньо прав.');
         $values = get_option(self::OPTION, []);
         if (!is_array($values)) $values = [];
         ?>
