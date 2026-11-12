@@ -13,8 +13,8 @@ final class UKR_Hero_Settings {
     }
 
     public static function menu(): void {
-        add_menu_page('UKreklamy — головна сторінка', 'UKreklamy', 'manage_options', self::PAGE, [__CLASS__, 'page'], 'dashicons-format-image', 61);
-        add_submenu_page(self::PAGE, 'Налаштування головної сторінки', 'Головна сторінка', 'manage_options', self::PAGE, [__CLASS__, 'page']);
+        add_menu_page('UKreklamy — головна сторінка', 'UKreklamy', UKR_Access::EDIT, self::PAGE, [__CLASS__, 'page'], 'dashicons-format-image', 61);
+        add_submenu_page(self::PAGE, 'Налаштування головної сторінки', 'Головна сторінка', UKR_Access::EDIT, self::PAGE, [__CLASS__, 'page']);
     }
 
     public static function register(): void {
@@ -54,7 +54,7 @@ final class UKR_Hero_Settings {
     }
 
     public static function page(): void {
-        if (!current_user_can('manage_options')) wp_die('Недостатньо прав.');
+        if (!current_user_can(UKR_Access::EDIT)) wp_die('Недостатньо прав.');
         $settings = get_option(self::OPT, []);
         if (!is_array($settings)) $settings = [];
         $id = absint($settings['image_id'] ?? 0);
