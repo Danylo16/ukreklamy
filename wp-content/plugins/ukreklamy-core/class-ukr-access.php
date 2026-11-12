@@ -21,6 +21,7 @@ final class UKR_Access {
 
     private static function content_caps(): array {
         $caps = ['read','upload_files',self::EDIT,self::VIEW_LEADS,
+            'read_private_ukr_leads', // Read-only; never grants edit_ukr_leads.
             'ukr_manage_service_categories','ukr_assign_service_categories'];
         foreach (['ukr_services','ukr_works','ukr_clients','ukr_faqs'] as $plural) {
             foreach (['edit_', 'edit_others_', 'edit_published_', 'edit_private_',
