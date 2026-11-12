@@ -13,6 +13,7 @@ require_once __DIR__ . '/class-ukr-site-content.php';
 require_once __DIR__ . '/class-ukr-editorial-sections.php';
 require_once __DIR__ . '/class-ukr-telegram-diagnostics.php';
 require_once __DIR__ . '/class-ukr-contact-links.php';
+require_once __DIR__ . '/class-ukr-typography.php';
 
 final class UKR_Core {
     const OPT = 'ukr_contacts';

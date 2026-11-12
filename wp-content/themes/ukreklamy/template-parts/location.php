@@ -10,7 +10,7 @@ $direction_url = 'https://www.google.com/maps/dir/?api=1&destination=' . rawurle
 <section class="section ukr-location" id="location" aria-labelledby="ukr-location-title">
   <div class="wrap ukr-location-layout">
     <div class="ukr-location-description">
-      <span class="eyebrow"><?php echo esc_html(ukr_copy('map_eyebrow', 'Де нас знайти')); ?></span>
+      <?php echo ukr_optional_eyebrow('map_eyebrow', 'Де нас знайти'); ?>
       <h2 id="ukr-location-title"><?php echo esc_html(ukr_copy('map_title', 'Ми в Чернігові')); ?></h2>
       <p><?php echo esc_html(ukr_copy('map_description', 'Адреса виробництва та місце, де можна нас знайти.')); ?></p>
       <address><?php echo esc_html($address); ?></address>

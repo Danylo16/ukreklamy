@@ -154,7 +154,7 @@ final class UKR_Site_Content {
         foreach (self::fields() as $key => $definition) {
             if (!array_key_exists($key, $input) || !is_scalar($input[$key])) continue;
             $text = wp_unslash((string)$input[$key]);
-            $text = $definition['type'] === 'textarea' ? sanitize_textarea_field($text) : sanitize_text_field($text);
+            $text = $definition['type'] === 'checkbox' ? ($text === '1' ? '1' : '0') : ($definition['type'] === 'textarea' ? sanitize_textarea_field($text) : sanitize_text_field($text));
             $out[$key] = $text;
         }
         return $out;
@@ -182,7 +182,7 @@ final class UKR_Site_Content {
         ?>
         <div class="wrap ukr-content-admin">
             <h1>Тексти головної сторінки</h1>
-            <p>Редагуйте заголовки, описи та підписи кнопок. Послуги й портфоліо змінюються у власних розділах WordPress, а фотографія Hero — у «UKreklamy → Головна сторінка».</p>
+            <p>Редагуйте заголовки, описи та підписи кнопок. <strong>Очистіть поле «Малий напис» і збережіть — напис повністю зникне із сайту.</strong> Послуги й портфоліо змінюються у власних розділах WordPress, а фотографія Hero — у «UKreklamy → Головна сторінка».</p>
             <p><strong>Важливо:</strong> не публікуйте непідтверджені ціни, результати, обіцянки чи юридичні тексти. Поле згоди на обробку даних має бути узгоджене із замовником.</p>
             <?php settings_errors(); ?>
             <form action="options.php" method="post">
@@ -201,7 +201,10 @@ final class UKR_Site_Content {
                     $id = 'ukr-copy-' . $key;
                   ?>
                     <tr><th scope="row"><label for="<?php echo esc_attr($id); ?>"><?php echo esc_html($definition['label']); ?></label></th>
-                      <td><?php if ($definition['type'] === 'textarea'): ?>
+                      <td><?php if ($definition['type'] === 'checkbox'): ?>
+                        <input type="hidden" name="<?php echo esc_attr(self::OPTION); ?>[<?php echo esc_attr($key); ?>]" value="0">
+                        <label><input type="checkbox" id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr(self::OPTION); ?>[<?php echo esc_attr($key); ?>]" value="1" <?php checked($value, '1'); ?>> Увімкнено</label>
+                        <?php elseif ($definition['type'] === 'textarea'): ?>
                         <textarea id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr(self::OPTION); ?>[<?php echo esc_attr($key); ?>]" class="large-text" rows="3" maxlength="2500"><?php echo esc_textarea($value); ?></textarea>
                         <?php else: ?>
                         <input id="<?php echo esc_attr($id); ?>" name="<?php echo esc_attr(self::OPTION); ?>[<?php echo esc_attr($key); ?>]" type="text" class="regular-text" maxlength="300" value="<?php echo esc_attr($value); ?>">

@@ -14,6 +14,13 @@ function ukr_copy(string $key, string $fallback): string {
     return $fallback;
 }
 
+/** An empty CMS eyebrow has no output; no visual switch is required. */
+function ukr_optional_eyebrow(string $key, string $fallback, string $class = 'eyebrow'): string {
+    $text = trim(ukr_copy($key, $fallback));
+    if ($text === '') return '';
+    return '<span class="' . esc_attr($class) . '">' . esc_html($text) . '</span>';
+}
+
 /** Favicon: original client's red emblem, cropped without the wordmark. */
 function ukr_brand_favicon_links(): void {
     $base = get_template_directory_uri() . '/assets/images/';
@@ -59,3 +66,20 @@ add_action('wp_enqueue_scripts', static function(): void {
     wp_enqueue_style('ukr-v115', $uri.'/assets-v115.css', ['ukr-v114'], (string)filemtime($dir.'/assets-v115.css'));
     wp_enqueue_script('ukr-v115', $uri.'/assets-v115.js', ['ukr-v114'], (string)filemtime($dir.'/assets-v115.js'), true);
 }, 80);
+
+/** v1.15.2 platform icons (after custom typography + v1.15.1). */
+add_action('wp_enqueue_scripts', static function(): void {
+    if (!is_front_page()) return;
+    $path = get_template_directory().'/assets-v1152.css';
+    $deps = wp_style_is('ukr-v1151','enqueued') ? ['ukr-v1151'] : ['ukr-v115'];
+    wp_enqueue_style('ukr-v1152', get_template_directory_uri().'/assets-v1152.css', $deps, (string)filemtime($path));
+}, 120);
+
+/** v1.15.3: restrained service expansion and contact icon refinements. */
+add_action('wp_enqueue_scripts', static function(): void {
+    if (!is_front_page()) return;
+    $dir = get_template_directory();
+    $uri = get_template_directory_uri();
+    wp_enqueue_style('ukr-v1153', $uri . '/assets-v1153.css', ['ukr-v1152'], (string) filemtime($dir . '/assets-v1153.css'));
+    wp_enqueue_script('ukr-v1153', $uri . '/assets-v1153.js', [], (string) filemtime($dir . '/assets-v1153.js'), true);
+}, 130);

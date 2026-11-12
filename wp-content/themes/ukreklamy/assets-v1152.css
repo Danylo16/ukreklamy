@@ -1,0 +1,5 @@
+/* UKreklamy v1.15.2 — platform icon buttons; no layout changes elsewhere. */
+.contact .ukr-contact-custom-links .ukr-contact-link--social{display:inline-flex;justify-content:center;align-items:center;border:1px solid rgba(255,255,255,.58);border-radius:50%;width:44px;height:44px;min-height:44px;padding:0;flex:0 0 44px;}
+.contact .ukr-contact-custom-links .ukr-contact-link--social svg{width:21px;height:21px;flex:none}
+.contact .ukr-contact-custom-links .ukr-contact-link--social:hover{background:rgba(255,255,255,.13);border-color:#fff;}
+@media (prefers-reduced-motion: reduce){.contact .ukr-contact-custom-links .ukr-contact-link--social{transition:none}}
