@@ -30,6 +30,7 @@ final class UKR_Service_Catalog {
                 'search_items' => 'Шукати напрями', 'parent_item' => 'Батьківський напрям',
             ],
             'public' => false, 'show_ui' => true, 'show_admin_column' => true,
+            'capabilities' => ['manage_terms'=>'ukr_manage_service_categories', 'edit_terms'=>'ukr_manage_service_categories', 'delete_terms'=>'ukr_manage_service_categories', 'assign_terms'=>'ukr_assign_service_categories'],
             'show_in_rest' => false, 'hierarchical' => true,
             'meta_box_cb' => [__CLASS__, 'category_select_box'],
             'rewrite' => false,
@@ -192,13 +193,13 @@ final class UKR_Service_Catalog {
     }
 
     public static function save_category_fields(int $term_id): void {
-        if (!current_user_can('manage_categories') || !isset($_POST['ukr_category_nonce']) ||
+        if (!current_user_can('ukr_manage_service_categories') || !isset($_POST['ukr_category_nonce']) ||
             !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['ukr_category_nonce'])), 'ukr_category_fields')) return;
         $image = absint($_POST['ukr_cat_image'] ?? 0);
         update_term_meta($term_id, '_ukr_cat_image', $image && wp_attachment_is_image($image) ? $image : 0);
         update_term_meta($term_id, '_ukr_cat_order', (int) ($_POST['ukr_cat_order'] ?? 0));
         update_term_meta($term_id, '_ukr_cat_visible', isset($_POST['ukr_cat_visible']) ? '1' : '0');
-        if (isset($_POST['ukr_subservice_order']) && is_array($_POST['ukr_subservice_order']) && current_user_can('edit_posts')) {
+        if (isset($_POST['ukr_subservice_order']) && is_array($_POST['ukr_subservice_order']) && current_user_can('edit_ukr_services')) {
             $posted = array_values(array_unique(array_filter(array_map('absint', wp_unslash($_POST['ukr_subservice_order'])))));
             // Reject forged IDs. Sort all services in the direction; don't let a partial payload reorder unseen entries.
             $existing = get_posts(['post_type'=>'ukr_service','post_status'=>['publish','draft','pending','future','private'],
@@ -224,7 +225,7 @@ final class UKR_Service_Catalog {
     }
     public static function unassigned_notice(): void {
         $screen = get_current_screen();
-        if (!$screen || $screen->post_type !== 'ukr_service' || !current_user_can('edit_posts')) return;
+        if (!$screen || $screen->post_type !== 'ukr_service' || !current_user_can('edit_ukr_services')) return;
         echo '<div class="notice notice-info"><p>UKreklamy: у кожної опублікованої послуги має бути один «Напрям послуг». Послуги без напряму не відображаються на сайті.</p></div>';
     }
 }
