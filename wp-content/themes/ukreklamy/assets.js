@@ -62,18 +62,29 @@
     if(chosenChannel==='phone'&&!/^\+?[0-9\s().-]{7,25}$/.test(value)){
       status.textContent='Перевірте номер телефону.';status.setAttribute('role','alert');contact.focus();return;
     }
+    const captcha=form.querySelector('.cf-turnstile');
+    const turnstileToken=form.querySelector('input[name="cf-turnstile-response"]')?.value||'';
+    if(captcha && !turnstileToken){
+      status.textContent='Підтвердьте перевірку захисту від спаму та повторіть спробу.';
+      status.setAttribute('role','alert');return;
+    }
     const button=form.querySelector('button[type=submit]');
     button.disabled=true;status.textContent='Зберігаємо заявку…';
     try{
       const tokenResponse=await fetch(window.ukrConfig.tokenEndpoint,{credentials:'same-origin',cache:'no-store',headers:{'X-WP-Nonce':window.ukrConfig.restNonce}});
       if(!tokenResponse.ok)throw Error('Не вдалося отримати захисний токен.');
       const token=(await tokenResponse.json()).token;
-      const payload={channel:chosenChannel,contact:value,comment:form.elements.comment.value,service_id:Number(form.elements.service_id?.value||0),website:form.elements.website.value,privacy:form.elements.privacy.checked,started:Number(form.elements.started.value),token,request_id:id};
+      const payload={channel:chosenChannel,contact:value,comment:form.elements.comment.value,service_id:Number(form.elements.service_id?.value||0),website:form.elements.website.value,privacy:form.elements.privacy.checked,started:Number(form.elements.started.value),token,request_id:id,turnstile_token:turnstileToken};
       const response=await fetch(window.ukrConfig.endpoint,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','X-WP-Nonce':window.ukrConfig.restNonce},body:JSON.stringify(payload)});
       const body=await response.json();
       if(!response.ok)throw Error(body.message||'Сервер тимчасово недоступний.');
       if(!body.saved)throw Error('Неочікувана відповідь сервера.');
       saved=true;status.textContent=body.message;status.classList.add('is-success');button.textContent='Заявку збережено';
-    }catch(err){status.setAttribute('role','alert');status.textContent=err.message||'Не вдалося підтвердити збереження. Перевірте у менеджера перед повтором.';button.disabled=false;}
+    }catch(err){
+      status.setAttribute('role','alert');
+      status.textContent=err.message||'Не вдалося підтвердити збереження. Перевірте у менеджера перед повтором.';
+      if(captcha && window.turnstile?.reset){try{window.turnstile.reset(captcha);}catch(_){}}
+      button.disabled=false;
+    }
   });
 })();
