@@ -28,6 +28,13 @@
       <div class="ukr-form-field"><label for="lead-contact" id="ukr-contact-label" data-phone-label="<?php echo esc_attr(ukr_copy('form_phone_label', 'Номер телефону')); ?>" data-telegram-label="<?php echo esc_attr(ukr_copy('form_telegram_label', 'Telegram @username')); ?>"><?php echo esc_html(ukr_copy('form_phone_label', 'Номер телефону')); ?> <span aria-hidden="true">*</span></label><input id="lead-contact" name="contact" autocomplete="tel" required maxlength="120" placeholder="<?php echo esc_attr(ukr_copy('form_phone_placeholder', '+380 XX XXX XX XX')); ?>" data-phone-placeholder="<?php echo esc_attr(ukr_copy('form_phone_placeholder', '+380 XX XXX XX XX')); ?>" data-telegram-placeholder="<?php echo esc_attr(ukr_copy('form_telegram_placeholder', '@username')); ?>" type="tel"></div>
       <div class="ukr-form-field"><label for="lead-comment"><?php echo esc_html(ukr_copy('form_comment_label', 'Що потрібно виготовити?')); ?> <span class="ukr-optional"><?php echo esc_html(ukr_copy('form_optional', 'необов\'язково')); ?></span></label><textarea id="lead-comment" name="comment" rows="2" maxlength="1500" placeholder="<?php echo esc_attr(ukr_copy('form_comment_placeholder', 'Кілька слів про вашу задачу')); ?>"></textarea></div>
       <div class="trap" aria-hidden="true"><label for="lead-website">Не заповнюйте це поле</label><input type="text" id="lead-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <?php
+        $turnstile_site_key = defined('UKR_TURNSTILE_SITE_KEY') ? trim((string) UKR_TURNSTILE_SITE_KEY) : '';
+        $turnstile_secret = defined('UKR_TURNSTILE_SECRET_KEY') ? trim((string) UKR_TURNSTILE_SECRET_KEY) : '';
+        if ($turnstile_site_key !== '' && $turnstile_secret !== ''):
+      ?>
+        <div class="cf-turnstile" data-sitekey="<?php echo esc_attr($turnstile_site_key); ?>" data-action="lead_form" data-appearance="interaction-only" data-theme="light"></div>
+      <?php endif; ?>
       <label class="privacy ukr-privacy"><input type="checkbox" name="privacy" required><span><?php echo nl2br(esc_html(ukr_copy('form_privacy', 'Погоджуюся на обробку моїх контактних даних для відповіді на звернення. Фінальний текст повідомлення про приватність має бути погоджений замовником.'))); ?></span></label>
       <input type="hidden" name="started" value="<?php echo esc_attr(time()); ?>">
       <button class="btn ukr-lead-submit" type="submit"><?php echo esc_html(ukr_copy('form_cta', 'Надіслати запит')); ?> <span aria-hidden="true">→</span></button>
