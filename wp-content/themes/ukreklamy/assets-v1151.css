@@ -1,0 +1,26 @@
+/* UKreklamy v1.15.1 — contact, footer, typography. No geometry changes to Hero. */
+body { font-family: var(--ukr-font-body, system-ui, sans-serif); }
+body :is(h1,h2,h3,h4,h5,h6,.brand,.btn,.sectionhead strong) { font-family: var(--ukr-font-heading, system-ui, sans-serif); }
+body.ukr-hide-section-eyebrows :is(.eyebrow, .sectionhead .label, .sectionhead .eyebrow, .ukr-section-eyebrow) { display:none!important; }
+.contact .ukr-contact-custom-links {display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;}
+.contact .ukr-contact-custom-links .ukr-contact-link {display:inline-flex;align-items:center;gap:9px;color:#fff;font-size:15px;font-weight:650;text-decoration:none;border:0;border-radius:8px;padding:10px 0;min-height:44px;transition:transform .2s ease,opacity .2s ease;}
+.contact .ukr-contact-custom-links .ukr-contact-link svg {display:block;flex:0 0 20px;}
+.contact .ukr-contact-custom-links .ukr-contact-link--instagram {border:1px solid rgba(255,255,255,.6);width:44px;height:44px;justify-content:center;padding:0;border-radius:50%;}
+.contact .ukr-contact-custom-links .ukr-contact-link:hover {transform:translateY(-2px);opacity:.85;}
+.contact .ukr-contact-custom-links .ukr-contact-link:focus-visible {outline:3px solid white;outline-offset:4px;}
+.ukr-footer-polished {padding:0;background:#111112;color:#fff;}
+.ukr-footer-polished .ukr-footer-main {display:grid;grid-template-columns:minmax(220px,1.7fr) minmax(130px,1fr) minmax(170px,1fr);gap:35px;padding-top:48px;padding-bottom:43px;align-items:start;color:#eee;font-size:14px;}
+.ukr-footer-polished .ukr-footer-main :is(.ukr-footer-nav,.ukr-footer-contact){display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+.ukr-footer-polished .ukr-footer-logo {font-size:17px;font-weight:850;color:#fff;letter-spacing:.02em;}
+.ukr-footer-polished .ukr-footer-brand p{margin:15px 0 0;max-width:320px;color:#aaa;line-height:1.7;font-size:14px;}
+.ukr-footer-polished .ukr-footer-main strong {color:#fff;margin-bottom:7px;font-size:13px;}
+.ukr-footer-polished .ukr-footer-main a:not(.ukr-footer-logo) {color:#c8c8c8;transition:color .2s ease;}
+.ukr-footer-polished .ukr-footer-main a:hover {color:#fff;}
+.ukr-footer-polished .ukr-footer-contact span {color:#aaa;}
+.ukr-footer-polished .ukr-footer-meta {border-top:1px solid #303033;}
+.ukr-footer-polished .ukr-footer-meta-inner {display:flex;gap:14px 35px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:18px;padding-bottom:18px;color:#aaa;font-size:12px;}
+.ukr-footer-polished .ukr-footer-meta-inner span {margin:0;}
+.ukr-footer-polished .ukr-footer-meta-inner a{color:#eaeaea;}
+@media(max-width:700px){.ukr-footer-polished .ukr-footer-main{grid-template-columns:1fr 1fr;gap:30px 22px;padding-top:36px;padding-bottom:32px}.ukr-footer-polished .ukr-footer-brand{grid-column:1/-1}.ukr-footer-polished .ukr-footer-meta-inner{flex-direction:column;align-items:flex-start;gap:9px}.contact .ukr-contact-custom-links {gap:8px 18px;}.contact .ukr-contact-custom-links .ukr-contact-link {font-size:14px;}}
+@media(max-width:380px){.ukr-footer-polished .ukr-footer-main{grid-template-columns:1fr}.ukr-footer-polished .ukr-footer-brand{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){.contact .ukr-contact-custom-links .ukr-contact-link,.ukr-footer-polished a{transition:none!important}}

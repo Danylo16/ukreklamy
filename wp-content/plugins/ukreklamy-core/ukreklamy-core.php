@@ -2,7 +2,7 @@
 /**
  * Plugin Name: UKreklamy Core
  * Description: Послуги, портфоліо, контакти, захищені заявки та сповіщення Telegram.
- * Version: 1.13.0
+ * Version: 1.16.0
  * Requires PHP: 8.1
  * Text Domain: ukreklamy
  */
@@ -13,6 +13,9 @@ require_once __DIR__ . '/class-ukr-site-content.php';
 require_once __DIR__ . '/class-ukr-editorial-sections.php';
 require_once __DIR__ . '/class-ukr-telegram-diagnostics.php';
 require_once __DIR__ . '/class-ukr-contact-links.php';
+require_once __DIR__ . '/class-ukr-typography.php';
+require_once __DIR__ . '/class-ukr-access.php';
+require_once __DIR__ . '/class-ukr-form-security.php';
 
 final class UKR_Core {
     const OPT = 'ukr_contacts';
@@ -42,13 +45,16 @@ final class UKR_Core {
         register_post_type('ukr_service', [
             'labels'=>self::labels('Послуга','Послуги'), 'public'=>false, 'show_ui'=>true,'show_in_menu'=>true,
             'supports'=>['title','editor','thumbnail','page-attributes'],'menu_icon'=>'dashicons-hammer','show_in_rest'=>false,
+            'capability_type'=>['ukr_service','ukr_services'],'map_meta_cap'=>true,
         ]);
         register_post_type('ukr_work', [
             'labels'=>self::labels('Робота','Портфоліо'), 'public'=>false,'show_ui'=>true,
             'supports'=>['title','editor','thumbnail','page-attributes'],'menu_icon'=>'dashicons-format-gallery','show_in_rest'=>false,
+            'capability_type'=>['ukr_work','ukr_works'],'map_meta_cap'=>true,
         ]);
         register_post_type('ukr_lead', [
             'labels'=>self::labels('Заявка','Заявки'),'public'=>false,'show_ui'=>true,'show_in_menu'=>true,
+            'capability_type'=>['ukr_lead','ukr_leads'],
             'capabilities'=>['create_posts'=>'do_not_allow'],'map_meta_cap'=>true,
             'supports'=>['title'],'menu_icon'=>'dashicons-email-alt', 'show_in_rest'=>false,
         ]);
@@ -88,7 +94,7 @@ final class UKR_Core {
             update_post_meta($post_id,'_ukr_gallery',implode(',',$ids));
         }
     }
-    static function menu(): void { add_options_page('Контакти UKreklamy','Контакти UKreklamy','manage_options','ukr-contacts',[__CLASS__,'contacts_page']); }
+    static function menu(): void { add_submenu_page('ukr-homepage','Контакти UKreklamy','Контакти UKreklamy',UKR_Access::EDIT,'ukr-contacts',[__CLASS__,'contacts_page']); }
     static function fields(): array { return ['phone'=>'Телефон','instagram'=>'Instagram URL','telegram'=>'Telegram URL','address'=>'Адреса','email'=>'Email','facebook'=>'Facebook URL']; }
     static function settings(): void {
         register_setting('ukr_contacts_group',self::OPT,['type'=>'array','sanitize_callback'=>[__CLASS__,'sanitize_contacts'],'default'=>[]]);
@@ -103,7 +109,7 @@ final class UKR_Core {
         return $out;
     }
     static function contacts_page(): void {
-        if (!current_user_can('manage_options')) return;
+        if (!current_user_can(UKR_Access::EDIT)) return;
         $values=get_option(self::OPT,[]);
         echo '<div class="wrap"><h1>Контакти UKreklamy</h1><form action="options.php" method="post">';
         settings_fields('ukr_contacts_group'); echo '<table class="form-table"><tbody>';
@@ -135,8 +141,8 @@ final class UKR_Core {
         $submitted=sanitize_text_field((string)($data['token']??''));
         if (!$cookie || !$submitted || !hash_equals($cookie,$submitted) || !wp_verify_nonce($submitted,'ukr_form')) return new WP_Error('csrf','Оновіть сторінку та спробуйте знову',['status'=>403]);
         if (!empty($data['website'])) return new WP_Error('spam','Запит не прийнято',['status'=>400]);
-        if (!empty($data['started']) && time()-(int)$data['started']<3) return new WP_Error('too_fast','Перевірте форму та повторіть спробу',['status'=>429]);
-        $ip=(string)($_SERVER['REMOTE_ADDR']??'unknown');
+        // A mandatory timing check is handled by UKR_Form_Security.
+        $ip=UKR_Form_Security::client_ip();
         $channel=sanitize_key((string)($data['channel']??''));
         $contact=sanitize_text_field((string)($data['contact']??''));
         $comment=sanitize_textarea_field((string)($data['comment']??''));
@@ -152,6 +158,8 @@ final class UKR_Core {
         $existing=(int)get_option($dedupe,0);
         if ($existing) return new WP_REST_Response(['saved'=>true,'id'=>$existing,'message'=>'Заявку вже збережено. Повторно відправляти не потрібно.'],200);
         if (!self::rate_limit($ip)) return new WP_Error('rate_limit','Забагато запитів. Спробуйте пізніше',['status'=>429]);
+        $security=UKR_Form_Security::check($request,$data,$ip,$channel,$contact);
+        if (is_wp_error($security)) return $security;
         if (!add_option($dedupe,'pending','','no')) {
             return new WP_Error('processing','Заявка вже обробляється. Не надсилайте її повторно',['status'=>409]);
         }
@@ -245,6 +253,7 @@ final class UKR_Core {
     }
     static function lock_lead(array $data,array $postarr): array { return $data; }
 }
+UKR_Access::boot();
 UKR_Core::boot();
 UKR_Service_Catalog::boot();
 register_activation_hook(__FILE__,['UKR_Core','activate']);

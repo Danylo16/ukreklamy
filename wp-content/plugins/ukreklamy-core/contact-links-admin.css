@@ -1,0 +1,22 @@
+/* UKreklamy v1.15.2 — contact editor */
+.ukr-contact-admin{max-width:1250px}
+.ukr-contact-admin .ukr-links-scroll{max-width:100%;overflow-x:auto}
+.ukr-contact-admin .ukr-links-table{min-width:850px}
+.ukr-contact-admin .ukr-links-table th{font-size:13px;white-space:nowrap}
+.ukr-contact-admin .ukr-links-table td{vertical-align:middle;padding:12px 9px}
+.ukr-contact-admin .ukr-links-table input{box-sizing:border-box;max-width:100%;width:100%}
+.ukr-contact-admin .ukr-links-table select{width:150px;max-width:100%}
+.ukr-contact-admin .ukr-link-icon-preview{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:#f0f2f5;color:#ad192d}
+.ukr-contact-admin .ukr-link-icon-preview svg{width:22px;height:22px}
+.ukr-contact-admin .ukr-link-actions{white-space:nowrap}
+.ukr-contact-admin .ukr-link-actions .button{margin:2px}
+.ukr-quick-settings{border:1px solid #dcdcde;background:#fff;border-radius:12px;padding:18px 22px 20px;max-width:900px;margin:18px 0 28px}
+.ukr-quick-settings h2{margin:0 0 6px;font-size:20px}
+.ukr-quick-settings .description{margin:0 0 20px}
+.ukr-quick-settings .ukr-quick-toggle{display:flex;align-items:flex-start;gap:12px;padding:13px 0;cursor:pointer;max-width:650px}
+.ukr-quick-settings .ukr-quick-toggle input{margin:4px 0 0;transform:scale(1.25)}
+.ukr-quick-settings .ukr-quick-toggle span{display:flex;flex-direction:column;gap:4px}
+.ukr-quick-settings .ukr-quick-toggle small{font-size:12px;color:#646970;font-weight:normal}
+.ukr-quick-settings .ukr-quick-text{display:block;font-weight:600;margin:4px 0 7px}
+.ukr-quick-settings .ukr-quick-toggle-last{margin:8px 0 15px}
+.ukr-quick-settings .regular-text{max-width:100%;width:440px}

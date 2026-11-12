@@ -1,0 +1,112 @@
+/* UKreklamy 1.16: robust macOS Safari flip, balanced photo cards and readable case studies. */
+.ukr-works-v114 .ukr-work-flip-card {
+  -webkit-perspective: 1400px !important;
+  perspective: 1400px !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  overflow: visible !important;
+}
+.ukr-works-v114 .ukr-work-flipper {
+  -webkit-transform-style: preserve-3d !important;
+  transform-style: preserve-3d !important;
+  -webkit-transform: translate3d(0,0,0) rotateY(0deg);
+  transform: translate3d(0,0,0) rotateY(0deg);
+  -webkit-transition: -webkit-transform .62s cubic-bezier(.2,.75,.25,1) !important;
+  transition: transform .62s cubic-bezier(.2,.75,.25,1) !important;
+}
+.ukr-works-v114 .ukr-work-flip-card.is-flipped .ukr-work-flipper {
+  -webkit-transform: translate3d(0,0,0) rotateY(180deg) !important;
+  transform: translate3d(0,0,0) rotateY(180deg) !important;
+}
+.ukr-works-v114 .ukr-work-face {
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -webkit-transform-style: flat;
+  transform-style: flat;
+  -webkit-font-smoothing: antialiased;
+}
+.ukr-works-v114 .ukr-work-face-front {
+  -webkit-transform: translateZ(1px);
+  transform: translateZ(1px);
+}
+.ukr-works-v114 .ukr-work-face-back {
+  -webkit-transform: rotateY(180deg) translateZ(1px) !important;
+  transform: rotateY(180deg) translateZ(1px) !important;
+}
+.ukr-works-v114 .ukr-work-face[inert] { pointer-events:none; }
+.ukr-works-v114 .ukr-work-face-back {
+  background:linear-gradient(145deg,#301e23 0%,#191216 100%);
+  box-shadow:none !important;
+  border:0 !important;
+}
+.ukr-works-v114 .ukr-work-flip-trigger,
+.ukr-works-v114 .ukr-work-unflip,
+.ukr-works-v114 .ukr-work-open { touch-action:manipulation; }
+.ukr-works-v114 .ukr-work-open {
+  gap:15px;
+  border-top:1px solid rgba(255,255,255,.2);
+}
+.ukr-works-v114 .ukr-work-front-caption strong { text-wrap:balance; }
+.ukr-works-v114 .worktrack { scroll-padding-inline:10px; }
+.ukr-works-v114 .ukr-work-flip-card:focus-within {
+  outline:2px solid rgba(213,25,49,.66);
+  outline-offset:2px;
+  border-radius:10px;
+}
+/* Desktop: keep the photograph and the project description visible together. */
+@media (min-width: 900px) {
+  .ukr-works-v114 .ukr-work-dialog {
+    width:min(1120px,calc(100vw - 50px)) !important;
+    max-width:1120px !important;
+    max-height:min(800px,calc(100dvh - 36px)) !important;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 {
+    display:grid !important;
+    grid-template-columns:minmax(0,1.62fr) minmax(280px,1fr);
+    align-items:start;
+    gap:0 !important;
+    min-height:430px;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-images {
+    min-width:0 !important; align-self:start;
+    background:#f0eae7;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-track {
+    border-radius:12px 0 0 0 !important;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-slide {
+    aspect-ratio:4/3 !important;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy {
+    min-width:0; max-width:none !important;
+    padding:36px 29px 26px !important;
+    margin:0 !important;
+    border-left:1px solid #eee8e4;
+  }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy h2 {
+    font-size:clamp(25px,2.8vw,36px);
+  }
+}
+@media (max-width:899px) {
+  .ukr-works-v114 .ukr-work-dialog { width:min(760px,calc(100vw - 18px)) !important; }
+  .ukr-works-v114 .ukr-work-detail-v115 .ukr-work-detail-copy {
+    padding:17px 19px 23px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ukr-works-v114 .ukr-work-flipper,
+  .ukr-works-v114 .ukr-work-flip-card.is-flipped .ukr-work-flipper {
+    -webkit-transform:none !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .ukr-works-v114 .ukr-work-face-front,
+  .ukr-works-v114 .ukr-work-face-back {
+    -webkit-transform:none !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .ukr-works-v114 .ukr-work-face-back { opacity:0; visibility:hidden; }
+  .ukr-works-v114 .ukr-work-flip-card.is-flipped .ukr-work-face-front { opacity:0;visibility:hidden; }
+  .ukr-works-v114 .ukr-work-flip-card.is-flipped .ukr-work-face-back { opacity:1;visibility:visible; }
+}

@@ -1,13 +1,27 @@
 <section class="section contact" id="contact" aria-labelledby="ukr-contact-heading">
   <div class="wrap contactgrid">
     <div class="ukr-contact-copy">
-      <span class="eyebrow"><?php echo esc_html(ukr_copy('contact_eyebrow', 'Почнімо з вашої задачі')); ?></span>
+      <?php echo ukr_optional_eyebrow('contact_eyebrow', 'Почнімо з вашої задачі'); ?>
       <h2 id="ukr-contact-heading"><?php echo esc_html(ukr_copy('contact_title', 'Розрахуємо ваш проєкт')); ?></h2>
       <p><?php echo nl2br(esc_html(ukr_copy('contact_description', 'Залиште контакт — обговоримо вашу ідею та підберемо рішення.'))); ?></p>
       <nav class="contactlinks ukr-contact-custom-links" aria-label="Способи зв’язку">
         <?php $ukr_links = class_exists('UKR_Contact_Links') ? UKR_Contact_Links::links() : []; ?>
-        <?php foreach ($ukr_links as $link): ?>
-          <a href="<?php echo esc_url($link['url']); ?>"<?php echo preg_match('~^https?://~i', $link['url']) ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html($link['label']); ?> <span aria-hidden="true">↗</span></a>
+        <?php foreach ($ukr_links as $link):
+          $url = (string) $link['url'];
+          $label = (string) $link['label'];
+          $kind = UKR_Contact_Links::type($link);
+          $social = UKR_Contact_Links::is_social($kind);
+          $types = UKR_Contact_Links::types();
+          $accessible = $label ?: ($types[$kind] ?? 'Посилання');
+          $visible = $label;
+          $compare = function_exists('mb_strtolower') ? mb_strtolower(trim($label)) : strtolower(trim($label));
+          if ($kind === 'phone' && in_array($compare, ['телефон', 'Телефон', 'phone'], true)) $visible = ukr_contact('phone') ?: preg_replace('~^tel:~i','',$url);
+          if ($kind === 'email' && in_array($compare, ['email','пошта','Пошта'],true)) $visible = preg_replace('~^mailto:~i','',$url);
+        ?>
+          <a class="ukr-contact-link ukr-contact-link--<?php echo esc_attr($kind); ?><?php echo $social ? ' ukr-contact-link--social' : ''; ?>" href="<?php echo esc_url($url); ?>"<?php echo preg_match('~^https?://~i',$url) ? ' target="_blank" rel="noopener noreferrer"' : ''; ?><?php if($social): ?> aria-label="<?php echo esc_attr($accessible); ?>" title="<?php echo esc_attr($accessible); ?>"<?php endif; ?>>
+            <?php echo UKR_Contact_Links::icon_svg($kind); // SVG from server-side allowlist. ?>
+            <?php if (!$social): ?><span><?php echo esc_html($visible); ?></span><?php endif; ?>
+          </a>
         <?php endforeach; ?>
       </nav>
       <?php if(ukr_contact('address')): ?><p class="ukr-contact-address"><?php echo esc_html(ukr_contact('address')); ?></p><?php endif; ?>
@@ -28,6 +42,13 @@
       <div class="ukr-form-field"><label for="lead-contact" id="ukr-contact-label" data-phone-label="<?php echo esc_attr(ukr_copy('form_phone_label', 'Номер телефону')); ?>" data-telegram-label="<?php echo esc_attr(ukr_copy('form_telegram_label', 'Telegram @username')); ?>"><?php echo esc_html(ukr_copy('form_phone_label', 'Номер телефону')); ?> <span aria-hidden="true">*</span></label><input id="lead-contact" name="contact" autocomplete="tel" required maxlength="120" placeholder="<?php echo esc_attr(ukr_copy('form_phone_placeholder', '+380 XX XXX XX XX')); ?>" data-phone-placeholder="<?php echo esc_attr(ukr_copy('form_phone_placeholder', '+380 XX XXX XX XX')); ?>" data-telegram-placeholder="<?php echo esc_attr(ukr_copy('form_telegram_placeholder', '@username')); ?>" type="tel"></div>
       <div class="ukr-form-field"><label for="lead-comment"><?php echo esc_html(ukr_copy('form_comment_label', 'Що потрібно виготовити?')); ?> <span class="ukr-optional"><?php echo esc_html(ukr_copy('form_optional', 'необов\'язково')); ?></span></label><textarea id="lead-comment" name="comment" rows="2" maxlength="1500" placeholder="<?php echo esc_attr(ukr_copy('form_comment_placeholder', 'Кілька слів про вашу задачу')); ?>"></textarea></div>
       <div class="trap" aria-hidden="true"><label for="lead-website">Не заповнюйте це поле</label><input type="text" id="lead-website" name="website" tabindex="-1" autocomplete="off"></div>
+      <?php
+        $turnstile_site_key = defined('UKR_TURNSTILE_SITE_KEY') ? trim((string) UKR_TURNSTILE_SITE_KEY) : '';
+        $turnstile_secret = defined('UKR_TURNSTILE_SECRET_KEY') ? trim((string) UKR_TURNSTILE_SECRET_KEY) : '';
+        if ($turnstile_site_key !== '' && $turnstile_secret !== ''):
+      ?>
+        <div class="cf-turnstile" data-sitekey="<?php echo esc_attr($turnstile_site_key); ?>" data-action="lead_form" data-appearance="interaction-only" data-theme="light"></div>
+      <?php endif; ?>
       <label class="privacy ukr-privacy"><input type="checkbox" name="privacy" required><span><?php echo nl2br(esc_html(ukr_copy('form_privacy', 'Погоджуюся на обробку моїх контактних даних для відповіді на звернення. Фінальний текст повідомлення про приватність має бути погоджений замовником.'))); ?></span></label>
       <input type="hidden" name="started" value="<?php echo esc_attr(time()); ?>">
       <button class="btn ukr-lead-submit" type="submit"><?php echo esc_html(ukr_copy('form_cta', 'Надіслати запит')); ?> <span aria-hidden="true">→</span></button>

@@ -30,10 +30,16 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define('UKR_TELEGRAM_TOKEN', getenv('UKR_TELEGRAM_TOKEN') ?: '');
         define('UKR_TELEGRAM_CHAT_IDS', getenv('UKR_TELEGRAM_CHAT_IDS') ?: '');
+        define('UKR_TURNSTILE_SITE_KEY', getenv('UKR_TURNSTILE_SITE_KEY') ?: '');
+        define('UKR_TURNSTILE_SECRET_KEY', getenv('UKR_TURNSTILE_SECRET_KEY') ?: '');
+        define('UKR_TRUST_CF_IP', getenv('UKR_TRUST_CF_IP') === 'true');
         define('DISALLOW_FILE_EDIT', true);
         define('WP_AUTO_UPDATE_CORE', 'minor');
       UKR_TELEGRAM_TOKEN: ${UKR_TELEGRAM_TOKEN:-}
       UKR_TELEGRAM_CHAT_IDS: ${UKR_TELEGRAM_CHAT_IDS:-}
+      UKR_TURNSTILE_SITE_KEY: ${UKR_TURNSTILE_SITE_KEY:-}
+      UKR_TURNSTILE_SECRET_KEY: ${UKR_TURNSTILE_SECRET_KEY:-}
+      UKR_TRUST_CF_IP: ${UKR_TRUST_CF_IP:-false}
     volumes:
       - wp_data:/var/www/html
       - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/zz-ukreklamy-uploads.ini:ro

@@ -18,7 +18,8 @@ $hero_image = $hero_image_id ? wp_get_attachment_image($hero_image_id, 'full', f
 <section class="hero ukr-hero-v17">
     <div class="wrap heroinner">
         <div class="herocopy">
-            <div class="label"><i class="dot"></i> <?php echo esc_html(ukr_copy('hero_eyebrow', 'Виробництво реклами · Чернігів')); ?></div>
+            <?php $hero_eyebrow = trim(ukr_copy('hero_eyebrow', 'Виробництво реклами · Чернігів')); ?>
+            <?php if ($hero_eyebrow !== ''): ?><div class="label"><i class="dot"></i> <?php echo esc_html($hero_eyebrow); ?></div><?php endif; ?>
             <h1><?php echo esc_html(ukr_copy('hero_title_first', 'Ваш бізнес')); ?> <em><?php echo esc_html(ukr_copy('hero_title_emphasis', 'мають помітити.')); ?></em></h1>
             <p><?php echo nl2br(esc_html(ukr_copy('hero_description', 'Вивіски, об’ємні літери, друк і брендування — від ідеї до готового результату. Виготовляємо в Чернігові, відправляємо по Україні.'))); ?></p>
             <div class="heroactions">

@@ -1,5 +1,5 @@
 <?php
-/** Five category cards; click to expand services, then open accessible service detail dialog. */
+/** Category cards; progressively disclose any directions after the first five. */
 $categories = taxonomy_exists('ukr_service_category') ? get_terms(['taxonomy'=>'ukr_service_category','hide_empty'=>false]) : [];
 if (is_wp_error($categories)) $categories = [];
 $categories = array_values(array_filter($categories, static function ($category) {
@@ -11,6 +11,11 @@ usort($categories, static function($a,$b) {
     return ($order_a <=> $order_b) ?: strcmp($a->name,$b->name);
 });
 $services = ukr_posts('ukr_service');
+$ukr_more_count = max(0, count($categories) - 6);
+$ukr_services_desc = ukr_copy('services_description', 'П’ять основних напрямів. Оберіть напрям, щоб переглянути конкретні послуги.');
+if ($ukr_more_count > 0 && trim($ukr_services_desc) === 'П’ять основних напрямів. Оберіть напрям, щоб переглянути конкретні послуги.') {
+    $ukr_services_desc = 'Оберіть напрям, щоб переглянути конкретні послуги.';
+}
 $groups = []; $templates = [];
 foreach ($services as $service) {
     if (get_post_meta($service->ID,'_ukr_visible',true) === '0') continue;
@@ -23,15 +28,15 @@ foreach ($services as $service) {
 }
 ?>
 <section class="section wrap" id="services" aria-labelledby="ukr-services-heading">
-  <div class="sectionhead"><div><span class="eyebrow"><?php echo esc_html(ukr_copy('services_eyebrow', 'Що виготовляємо')); ?></span><h2 id="ukr-services-heading"><?php echo esc_html(ukr_copy('services_title', 'Рішення для вашого бізнесу')); ?></h2></div><p><?php echo nl2br(esc_html(ukr_copy('services_description', 'П’ять основних напрямів. Оберіть напрям, щоб переглянути конкретні послуги.'))); ?></p></div>
-  <div class="servicegrid ukr-catalog">
-    <?php foreach ($categories as $category):
+  <div class="sectionhead"><div><?php echo ukr_optional_eyebrow('services_eyebrow', 'Що виготовляємо'); ?><h2 id="ukr-services-heading"><?php echo esc_html(ukr_copy('services_title', 'Рішення для вашого бізнесу')); ?></h2></div><p><?php echo nl2br(esc_html($ukr_services_desc)); ?></p></div>
+  <div class="servicegrid ukr-catalog" id="ukr-services-grid">
+    <?php foreach ($categories as $ukr_cat_index => $category):
       $children = $groups[$category->term_id] ?? [];
       $panel_id = 'ukr-sublist-' . $category->term_id;
       $cat_photo = absint(get_term_meta($category->term_id,'_ukr_cat_image',true));
       $cat_desc = trim(wp_strip_all_tags($category->description));
     ?>
-    <article class="service ukr-category">
+    <article class="service ukr-category<?php echo $ukr_cat_index >= 6 ? ' ukr-category--extra' : ''; ?>">
       <?php if ($children): ?>
       <button class="ukr-category-trigger" type="button" aria-expanded="false" aria-controls="<?php echo esc_attr($panel_id); ?>" aria-label="Переглянути послуги: <?php echo esc_attr($category->name); ?>">
       <?php else: ?>
@@ -63,6 +68,14 @@ foreach ($services as $service) {
     <?php endforeach; ?>
     <?php if (!$categories): ?><p class="empty-state"><?php echo nl2br(esc_html(ukr_copy('services_empty_all', 'Напрями послуг ще не заповнені. Залиште запит у формі нижче.'))); ?></p><?php endif; ?>
   </div>
+  <?php if ($ukr_more_count > 0): ?>
+  <div class="ukr-services-more-wrap" id="ukr-services-more-wrap" hidden>
+    <button type="button" class="ukr-services-more" id="ukr-services-more" aria-expanded="false" aria-controls="ukr-services-grid">
+      <span>Показати ще <span class="ukr-services-more-count">+<?php echo (int)$ukr_more_count; ?></span></span>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>
+    </button>
+  </div>
+  <?php endif; ?>
   <?php foreach ($templates as $service):
       $featured_id = get_post_thumbnail_id($service->ID);
       $extra_ids = array_values(array_filter(array_map('absint', explode(',', (string) get_post_meta($service->ID,'_ukr_service_gallery',true)))));
@@ -106,7 +119,7 @@ foreach ($services as $service) {
         <?php endif; ?>
       </div>
       <div class="ukr-detail-main">
-        <span class="eyebrow"><?php echo esc_html(ukr_copy('modal_eyebrow', 'Деталі послуги')); ?></span>
+        <?php echo ukr_optional_eyebrow('modal_eyebrow', 'Деталі послуги'); ?>
         <h2 class="ukr-detail-title" id="ukr-service-dialog-title"><?php echo esc_html(get_the_title($service)); ?></h2>
         <?php if ($short): ?><p class="ukr-detail-intro"><?php echo esc_html($short); ?></p><?php endif; ?>
         <?php if ($desc): ?><div class="ukr-detail-description"><?php echo wpautop(wp_kses_post($desc)); ?></div><?php else: ?><p class="ukr-detail-description"><?php echo esc_html(ukr_copy('modal_description_empty', 'Опис послуги буде додано.')); ?></p><?php endif; ?>
