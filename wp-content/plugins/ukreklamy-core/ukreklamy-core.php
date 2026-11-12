@@ -13,6 +13,7 @@ require_once __DIR__ . '/class-ukr-site-content.php';
 require_once __DIR__ . '/class-ukr-editorial-sections.php';
 require_once __DIR__ . '/class-ukr-telegram-diagnostics.php';
 require_once __DIR__ . '/class-ukr-contact-links.php';
+require_once __DIR__ . '/class-ukr-typography.php';
 require_once __DIR__ . '/class-ukr-access.php';
 require_once __DIR__ . '/class-ukr-form-security.php';
 
@@ -140,7 +141,7 @@ final class UKR_Core {
         $submitted=sanitize_text_field((string)($data['token']??''));
         if (!$cookie || !$submitted || !hash_equals($cookie,$submitted) || !wp_verify_nonce($submitted,'ukr_form')) return new WP_Error('csrf','Оновіть сторінку та спробуйте знову',['status'=>403]);
         if (!empty($data['website'])) return new WP_Error('spam','Запит не прийнято',['status'=>400]);
-        // Timing, request size, and cross-site hints are checked by UKR_Form_Security.
+        // A mandatory timing check is handled by UKR_Form_Security.
         $ip=UKR_Form_Security::client_ip();
         $channel=sanitize_key((string)($data['channel']??''));
         $contact=sanitize_text_field((string)($data['contact']??''));

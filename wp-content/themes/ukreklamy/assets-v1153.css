@@ -1,0 +1,13 @@
+/* v1.15.3: expandable category list. Without JS all categories remain visible. */
+#services.ukr-catalog-ready .ukr-category--extra:not(.is-visible){display:none}
+#ukr-services-more-wrap[hidden]{display:none!important}
+#services .ukr-services-more-wrap{display:flex;justify-content:center;margin:clamp(20px,3vw,38px) auto 0}
+#services .ukr-services-more{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:50px;padding:12px 22px;border:1px solid #d1c8c9;background:#fff;border-radius:999px;color:#211b1d;font:inherit;font-size:14px;font-weight:750;box-shadow:0 5px 18px rgba(20,14,17,.04);transition:background .23s ease,color .23s ease,border-color .23s ease,box-shadow .23s ease,transform .23s ease}
+#services .ukr-services-more:hover{border-color:#d7192f;color:#b81028;box-shadow:0 9px 25px rgba(40,15,20,.10);transform:translateY(-2px)}
+#services .ukr-services-more:focus-visible{outline:3px solid #d7192f;outline-offset:4px}
+#services .ukr-services-more-count{font-variant-numeric:tabular-nums;color:#c3192d}
+#services .ukr-services-more svg{transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+#services .ukr-services-more:hover svg{transform:translateY(4px)}
+/* Filled Facebook glyph, properly scaled in the existing brand-style circle. */
+.contact .ukr-contact-custom-links .ukr-contact-link--facebook svg{width:25px;height:25px}
+@media(prefers-reduced-motion:reduce){#services .ukr-services-more,#services .ukr-services-more svg{transition:none!important;transform:none!important}}

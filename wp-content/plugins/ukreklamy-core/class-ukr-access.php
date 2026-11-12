@@ -14,7 +14,7 @@ final class UKR_Access {
     public static function boot(): void {
         add_action('init', [__CLASS__, 'sync_roles'], 5);
         add_action('admin_menu', [__CLASS__, 'leads_menu']);
-        foreach (['ukr_hero_group','ukr_site_content_group','ukr_contact_links_group','ukr_contacts_group'] as $group) {
+        foreach (['ukr_hero_group','ukr_site_content_group','ukr_contact_links_group','ukr_contacts_group','ukr_typography_group'] as $group) {
             add_filter('option_page_capability_' . $group, static fn() => self::EDIT);
         }
     }

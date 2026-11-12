@@ -4,7 +4,7 @@ $items = ukr_posts('ukr_work');
 ?>
 <section class="section wrap ukr-works-v113 ukr-works-v114" id="works" aria-labelledby="ukr-works-heading">
   <div class="sectionhead">
-    <div><span class="eyebrow">Виконаний проєкт</span>
+    <div><?php echo ukr_optional_eyebrow('works_eyebrow', 'Виконаний проєкт'); ?>
       <h2 id="ukr-works-heading"><?php echo esc_html(ukr_copy('works_title', 'Роботи говорять краще')); ?></h2></div>
     <p><?php echo nl2br(esc_html(ukr_copy('works_description', 'Реальні роботи компанії з фотографіями та описами.'))); ?></p>
   </div>
@@ -95,7 +95,7 @@ $items = ukr_posts('ukr_work');
         <?php endif; ?>
       </div>
       <div class="ukr-work-detail-copy">
-        <span class="eyebrow">Виконаний проєкт</span>
+        <?php echo ukr_optional_eyebrow('works_eyebrow', 'Виконаний проєкт'); ?>
         <h2 id="ukr-work-dialog-title"><?php echo esc_html(get_the_title($item)); ?></h2>
         <?php
           $work_description = preg_replace('~<figure\b[^>]*>.*?</figure>~is', '', (string)$item->post_content);

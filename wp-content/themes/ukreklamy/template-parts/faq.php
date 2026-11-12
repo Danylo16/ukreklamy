@@ -4,7 +4,7 @@ $questions = class_exists('UKR_Editorial_Sections') ? UKR_Editorial_Sections::en
 <section class="section ukr-faq" id="faq" aria-labelledby="ukr-faq-title">
   <div class="wrap ukr-faq-grid">
     <div class="ukr-faq-intro">
-      <span class="eyebrow"><?php echo esc_html(ukr_copy('faq_eyebrow', 'Запитання')); ?></span>
+      <?php echo ukr_optional_eyebrow('faq_eyebrow', 'Запитання'); ?>
       <h2 id="ukr-faq-title"><?php echo esc_html(ukr_copy('faq_title', 'Перш ніж замовити')); ?></h2>
       <p><?php echo nl2br(esc_html(ukr_copy('faq_description', 'Умови проєкту, ціни, терміни й матеріали залежать від вашої задачі.'))); ?></p>
       <a class="ukr-faq-contact" href="#contact"><?php echo esc_html(ukr_copy('faq_cta', 'Поставити запитання →')); ?></a>

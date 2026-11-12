@@ -7,7 +7,7 @@ if (!$clients && !$editor_preview) return;
 <section class="ukr-clients clients ukr-clients-v113 ukr-clients-v114" id="clients" aria-labelledby="ukr-clients-title">
   <div class="wrap ukr-clients-layout">
     <div class="ukr-clients-heading">
-      <span class="eyebrow"><?php echo esc_html(ukr_copy('clients_eyebrow', 'Наші клієнти')); ?></span>
+      <?php echo ukr_optional_eyebrow('clients_eyebrow', 'Наші клієнти'); ?>
       <h2 id="ukr-clients-title"><?php echo esc_html(ukr_copy('clients_title', 'Нам довіряють')); ?></h2>
     </div>
     <?php if ($editor_preview): ?>
