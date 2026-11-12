@@ -59,3 +59,16 @@ add_action('wp_enqueue_scripts', static function(): void {
     wp_enqueue_style('ukr-v115', $uri.'/assets-v115.css', ['ukr-v114'], (string)filemtime($dir.'/assets-v115.css'));
     wp_enqueue_script('ukr-v115', $uri.'/assets-v115.js', ['ukr-v114'], (string)filemtime($dir.'/assets-v115.js'), true);
 }, 80);
+
+/** v1.16: Safari-safe portfolio and optional, server-validated Turnstile. */
+add_action('wp_enqueue_scripts', static function (): void {
+    if (!is_front_page()) return;
+    $dir = get_template_directory();
+    $uri = get_template_directory_uri();
+    wp_enqueue_style('ukr-v116', $uri.'/assets-v116.css', ['ukr-v115'], (string) filemtime($dir.'/assets-v116.css'));
+    $site_key = defined('UKR_TURNSTILE_SITE_KEY') ? trim((string) UKR_TURNSTILE_SITE_KEY) : '';
+    $secret = defined('UKR_TURNSTILE_SECRET_KEY') ? trim((string) UKR_TURNSTILE_SECRET_KEY) : '';
+    if ($site_key !== '' && $secret !== '') {
+        wp_enqueue_script('ukr-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], null, ['strategy' => 'defer', 'in_footer' => true]);
+    }
+}, 90);
