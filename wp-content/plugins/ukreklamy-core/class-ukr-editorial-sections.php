@@ -26,6 +26,7 @@ final class UKR_Editorial_Sections {
             ],
             'public' => false, 'show_ui' => true, 'show_in_rest' => false,
             'supports' => ['title', 'thumbnail', 'page-attributes'],
+            'capability_type'=>['ukr_client','ukr_clients'],'map_meta_cap'=>true,
             'menu_icon' => 'dashicons-groups',
         ]);
         register_post_type('ukr_faq', [
@@ -36,6 +37,7 @@ final class UKR_Editorial_Sections {
             ],
             'public' => false, 'show_ui' => true, 'show_in_rest' => false,
             'supports' => ['title', 'editor', 'page-attributes'],
+            'capability_type'=>['ukr_faq','ukr_faqs'],'map_meta_cap'=>true,
             'menu_icon' => 'dashicons-editor-help',
         ]);
     }
@@ -109,7 +111,7 @@ final class UKR_Editorial_Sections {
     }
 
     public static function admin_menu(): void {
-        add_submenu_page('ukr-homepage', 'Клієнти та FAQ — стан наповнення', 'Клієнти та FAQ', 'manage_options', 'ukr-editorial-status', [__CLASS__, 'status_page']);
+        add_submenu_page('ukr-homepage', 'Клієнти та FAQ — стан наповнення', 'Клієнти та FAQ', UKR_Access::EDIT, 'ukr-editorial-status', [__CLASS__, 'status_page']);
     }
 
     public static function admin_columns(array $columns): array {
@@ -124,7 +126,7 @@ final class UKR_Editorial_Sections {
     }
 
     public static function status_page(): void {
-        if (!current_user_can('manage_options')) wp_die('Недостатньо прав.');
+        if (!current_user_can(UKR_Access::EDIT)) wp_die('Недостатньо прав.');
         echo '<div class="wrap"><h1>Клієнти та FAQ — перевірка відображення</h1>';
         echo '<p>Сайт показує лише <strong>опубліковані</strong> елементи. Для клієнта обов’язковий логотип у «Головне зображення», для FAQ — відповідь у редакторі. Вимкнена видимість також приховує запис.</p>';
         foreach (['ukr_client' => ['Клієнти', 'Клієнти'], 'ukr_faq' => ['FAQ', 'FAQ']] as $type => $labels) {
@@ -149,7 +151,7 @@ final class UKR_Editorial_Sections {
     }
 
     public static function prepare_faq(): void {
-        if (!current_user_can('manage_options')) wp_die('Недостатньо прав.');
+        if (!current_user_can(UKR_Access::EDIT)) wp_die('Недостатньо прав.');
         check_admin_referer('ukr_prepare_faq');
         $questions = ['Як розраховується ціна?', 'Який мінімальний тираж?', 'Чи доставляєте по Україні?', 'Чи допомагаєте з макетом?'];
         $existing = get_posts(['post_type' => 'ukr_faq', 'post_status' => 'any', 'numberposts' => -1]);
