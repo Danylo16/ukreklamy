@@ -9,7 +9,7 @@ final class UKR_Contact_Links {
         add_action('admin_enqueue_scripts', [__CLASS__, 'assets']);
     }
     public static function menu(): void {
-        add_submenu_page('ukr-homepage', 'Контактні посилання', 'Контактні посилання', 'manage_options', 'ukr-contact-links', [__CLASS__, 'page']);
+        add_submenu_page('ukr-homepage', 'Контактні посилання', 'Контактні посилання', UKR_Access::EDIT, 'ukr-contact-links', [__CLASS__, 'page']);
     }
     public static function register(): void {
         register_setting('ukr_contact_links_group', self::OPTION, ['type' => 'array', 'sanitize_callback' => [__CLASS__, 'sanitize']]);
@@ -58,12 +58,12 @@ final class UKR_Contact_Links {
         }
     }
     public static function page(): void {
-        if (!current_user_can('manage_options')) wp_die('Недостатньо прав');
+        if (!current_user_can(UKR_Access::EDIT)) wp_die('Недостатньо прав');
         $links = self::links();
         ?>
         <div class="wrap"><h1>Контактні посилання UKreklamy</h1>
         <p>Кнопки під заголовком у червоному блоці консультації. Укажіть назву та справжній URL, телефон у форматі <code>tel:+380...</code>, email — <code>mailto:address@example.com</code>. Порядок рядків відповідає порядку на сайті. Порожні рядки не публікуються.</p>
-        <p>Основні телефон, адресу й соцмережі у footer, як і раніше, можна змінити в <a href="<?php echo esc_url(admin_url('options-general.php?page=ukr-contacts')); ?>">Налаштування → Контакти UKreklamy</a>.</p>
+        <p>Основні телефон, адресу й соцмережі у footer, як і раніше, можна змінити в <a href="<?php echo esc_url(admin_url('admin.php?page=ukr-contacts')); ?>">Налаштування → Контакти UKreklamy</a>.</p>
         <?php settings_errors(); ?>
         <form method="post" action="options.php" id="ukr-links-form">
         <?php settings_fields('ukr_contact_links_group'); ?>
